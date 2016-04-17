@@ -23,6 +23,9 @@ void generate_random_sequence(char * sequence, long length,
 
 long find_longest_homopolymer(char * sequence)
 {
+  /* calculate length of longest homopolymer in the sequence.
+     homopolymer = stretch of identical bases */
+
   long length = strlen(sequence);
   long stretch = 0;
   long longest = 0;
@@ -49,6 +52,9 @@ void * worker(void * t)
   long rounds = SEQCOUNT / THREADS;
   unsigned short randstate[3] = {random(), 0, 0};
 
+  /* generate SEQCOUNT/THREADS sequences of length SEQLENGTH each,
+     and find the longest homopolymer */
+
   printf("Thread %ld processing %ld sequences.\n", (long) t, rounds);
   long i;
   for(i = 0; i < rounds; i++)
@@ -63,6 +69,7 @@ void * worker(void * t)
 
 int main(int argc, char ** argv)
 {
+  /* initialise random number generator with a "random" seed */
   long total_longest = 0;
   long result[THREADS];
   pthread_attr_t attr;
@@ -70,11 +77,15 @@ int main(int argc, char ** argv)
 
   srandom(time(0));
 
+  /* Initialize thread attributes with defaults */
   if (pthread_attr_init(&attr))
     {
-      fprintf(stderr, "Fatal error: Unable to initialize thread attributes\n");
+    fprintf(stderr, "Fatal error: Unable to initialize thread attributes\n");
       exit(1);
     }
+
+
+  /* create THREAD threads */
 
   long t;
   for (t = 0; t < THREADS; t++)
@@ -88,6 +99,8 @@ int main(int argc, char ** argv)
           exit(1);
         }
     }
+
+  /* wait for the threads to finish, and collect results */
 
   for (t = 0; t < THREADS; t++)
     {
@@ -106,5 +119,6 @@ int main(int argc, char ** argv)
     }
   
   printf("Length of longest homopolymer: %ld\n", total_longest);
+
   return 0;
 }
