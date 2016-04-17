@@ -69,11 +69,12 @@ void * worker(void * t)
 
 int main(int argc, char ** argv)
 {
-  /* initialise random number generator with a "random" seed */
   long total_longest = 0;
   long result[THREADS];
   pthread_attr_t attr;
   pthread_t thread[THREADS];
+
+  /* initialise random number generator with a "random" seed */
 
   srandom(time(0));
 
