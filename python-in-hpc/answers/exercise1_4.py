@@ -2,7 +2,7 @@ import numpy as np
 import pylab
 
 # read data
-data = np.loadtxt('exercise9_4.dat')
+data = np.loadtxt('contour.dat')
 pylab.imshow(data)
 
 # split
