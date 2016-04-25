@@ -15,5 +15,7 @@ phi = np.zeros_like(rho)
 
 t0 = Timer('pyfidi(rho, h, phi)', setup).timeit(10000)
 t1 = Timer('cfidi(rho, h, phi)', setup).timeit(10000)
-print t0, t1
+print
+print "Python:", t0
+print "     C:", t1
 

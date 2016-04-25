@@ -1,5 +1,5 @@
 import numpy as np
-import pylab as pl
+from matplotlib import pylab as pl
 
 x = np.linspace(-np.pi/2, np.pi/2, 20)
 y1 = np.sin(x)
