@@ -1,0 +1,84 @@
+#Normalization, comparing N1 and T1 and making plots in R:
+
+#Reading in the files                                                                                                                                                                
+N1cCHIP<-read.table("N1_CHIP_countR.txt", sep="\t")                                                                                                           
+T1cCHIP<-read.table("T1_CHIP_countR.txt", sep="\t")                                                                                                            
+T1cINPUT<-read.table("T1_INPUT_countR.txt", sep="\t")                                                                                                     
+N1cINPUT<-read.table("N1_INPUT_countR.txt", sep="\t")
+
+#Setting the column names                                                                                                                                                                
+colnames(N1cCHIP)=c("peak", "N1cCHIPcount")                                                                                            
+colnames(T1cCHIP)=c("peak", "T1cCHIPcount")                                                                                                
+colnames(T1cINPUT)=c("peak", "T1cINPUTcount")                                                                                       
+colnames(N1cINPUT)=c("peak", "N1cINPUTcount")
+
+
+#Merging the four count tables into one, and setting missing values (no reads) to 0.                                                                                                                                                                 
+readcounts <- merge(N1cCHIP, N1cINPUT, by="peak", ALL=T)                                                                                                            
+readcounts <- merge(readcounts,T1cCHIP, by="peak", ALL=T)                                                                                                     
+readcounts <- merge(readcounts,T1cINPUT, by="peak", ALL=T)                                                               
+readcounts[is.na(readcounts)]=0
+
+#Adding four columns with size normalization counts (calculation of normalization factor is shown in #the Alignment section). 
+readcounts$N1cCHIPsizenorm<-readcounts$N1cCHIPcount/<SIZE NORMALIZATION FACTOR>                                                              
+readcounts$N1cINPUTsizenorm<-readcounts$N1cINPUTcount/<SIZE NORMALIZATION FACTOR>                                                                
+readcounts$T1cCHIPsizenorm<-readcounts$T1cCHIPcount/<SIZE NORMALIZATION FACTOR>                                                               
+readcounts$T1cINPUTsizenorm<-readcounts$T1cINPUTcount/<SIZE NORMALIZATION FACTOR>
+
+
+#Importing the package preprocessCore (used for quantile normalization)                                                                                                                                                                 
+library(preprocessCore)
+
+#Getting a table with the CHIP counts for normalization                                                                                                                                                                 
+fornorm<-cbind(readcounts$N1cCHIPcount, readcounts$T1cCHIPcount)
+
+#Normalizing                                                                                                                                                                 
+normcounts<-normalize.quantiles(as.matrix(fornorm), copy=TRUE)
+
+#Adding two columns with the normalized counts in the readcount table                                                                                                                                                              
+readcounts$N1cCHIPnorm<-normcounts[,1]                                                                                                         
+readcounts$T1cCHIPnorm<-normcounts[,2]
+
+#Adding columns with the logfold change values for each of the three CHIP-counts                                                                                                                                                                 
+readcounts$logfoldChangeRaw <- log2( (readcounts$N1cCHIPcount+1)/(readcounts$T1cCHIPcount+1) ) 
+readcounts$logfoldChangeSnorm <- log2( (readcounts$N1cCHIPsizenorm+1)/(readcounts$T1cCHIPsizenorm+1) ) 
+readcounts$logfoldChangeQnorm<- log2( (readcounts$N1cCHIPnorm+1)/(readcounts$T1cCHIPnorm+1) )
+
+
+
+#Sorting the readcount table based on logfoldChange for the quantile normalized counts and  write it #to file                                                                                                                                                               
+ordered_readcounts <- readcounts[order(readcounts$logfoldChangeQnorm),]
+write.table(ordered_readcounts, "ordered_readcounts.txt", sep="\t", quote=FALSE, row.names=F)
+
+#Plot CHIP vs INPUT for N1 using size normalized counts                                                                                                                                                                 
+pdf("readcount_plot_N1c.pdf")                                                                                                          
+plot(log2(readcounts$N1cCHIPsizenorm+1), log2(readcounts$N1cINPUTsizenorm+1), main="Size normalized readcounts N1c", xlab="CHIP", ylab="INPUT", pch=16, xlim=c(1,12), ylim=c(1,12))                                                                                                              
+abline(0,1,col="red")                                                                                                                                                                                       
+dev.off()
+
+#Plot CHIP vs INPUT for T1 using size normalized counts                                                                                                                                                                 
+pdf("readcount_plot_T1c.pdf")                                                                                                                
+plot(log2(readcounts$T1cCHIPsizenorm+1), log2(readcounts$T1cINPUTsizenorm+1), main="Size normalized readcounts T1c", xlab="CHIP", ylab="INPUT", pch=16, xlim=c(1,12), ylim=c(1,12))                                                                                                         
+abline(0,1,col="red")                                                                                                                                                                                         
+dev.off()
+
+#Plot the quantile normalized counts of N1c vs T1c                                                                                                                                                                 
+pdf("readcount_plot_CHIP_N1c_T1c.pdf")                                                                                             
+plot(log2(readcounts$N1cCHIPnorm+1), log2(readcounts$T1cCHIPnorm+1), main="N1c vs T1c", xlab="N1c log2(normalized counts)", ylab="T1c log2(normalised counts)", pch=16, xlim=c(1,13), ylim=c(1,13))                                                    
+abline(0,1,col="red")                                                                                                                                                                                      
+dev.off()
+
+#Plot histograms of logfoldChange for raw count, size normalized count and quantile normalized #counts                                                                                                                                                                
+pdf("histogram_logfoldChange_quantile_normalized_counts.pdf")                                                                                                                                                       
+hist(readcounts$logfoldChangeQnorm, breaks=60, col="yellow", main="log2( (N1cCHIPnorm+1)/(T1cCHIPnorm+1) )")                          
+abline(v=0,  col="red", lwd=2)                                                                                                                                                                                   
+dev.off()
+pdf("histogram_logfoldChange_size_normalized_counts.pdf")                                                                                                                                                       
+hist(readcounts$logfoldChangeSnorm, breaks=60, col="yellow", main="log2( (N1cCHIPsizenorm+1)/(T1cCHIPsizenorm+1) )")    
+abline(v=0,  col="red", lwd=2)                                                                                                                                                                                   
+dev.off()
+pdf("histogram_logfoldChange_raw_counts.pdf")                                                                                                                                                       
+hist(readcounts$logfoldChangeRaw, breaks=60, col="yellow", main="log2( (N1cCHIPcounts+1)/(T1cCHIPcounts+1) )")   
+abline(v=0,  col="red", lwd=2)                                                                                                                                                                                         
+dev.off()
+
