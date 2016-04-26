@@ -62,7 +62,7 @@ int main(int argc, char *argv[])
   string line;
   size_t nth{1};
 
-  if(argc ==2) nth=atoi(argv[1]);
+  if(argc ==4) nth=atoi(argv[3]);
   if(nth<1 || nth>thread::hardware_concurrency()) nth = 1;
   
   //read snps
