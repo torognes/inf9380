@@ -1,1 +1,180 @@
-﻿# To install mpi4py:#==============================module load openmpi.intelmodule load python2pip install --user mpi4py#hello world example:#==============================03:28 PM login-0-2 ~/mpi4py-example> cat hw.py#!/usr/bin/env pythonfrom mpi4py import MPIcomm = MPI.COMM_WORLDprint "Hello! I'm rank %d from %d running in total..." % (comm.rank, comm.size)comm.Barrier()   # wait for everybody to synchronize _here_03:28 PM login-0-2 ~/mpi4py-example> mpirun -np 4 hw.py03:28 PM login-0-2 ~/mpi4py-example> cat hw.slurm#!/bin/bash# Job name:#SBATCH --job-name=hello## Project:#SBATCH --account=staff## Wall clock limit:#SBATCH --time=0:02:00## Max memory usage:#SBATCH --mem-per-cpu=1G#SBATCH --ntasks=4## Set up job environment:source /cluster/bin/jobsetupmodule purge   # clear any inherited modulesset -o errexit # exit on errorsmodule load openmpi.intelmodule load python2## Copy input files to the work directory:cp hw.py $SCRATCH## Do some work:cd $SCRATCHmpirun python hw.py03:29 PM login-0-2 ~/mpi4py-example> sbatch --ntasks 4 hw.slurmSubmitted batch job 1375092503:32 PM login-0-2 ~/mpi4py-example> cat slurm-13750925.outStarting job 13750925 ("hello") on c2-[24,26] at Wed Jan 13 15:30:11 CET 2016Hello! I'm rank 0 from 4 running in total...Hello! I'm rank 3 from 4 running in total...Hello! I'm rank 1 from 4 running in total...Hello! I'm rank 2 from 4 running in total...Currently Loaded Modulefiles:  1) intel/2015.3          3) libffi/3.0.13  2) openmpi.intel/1.8.8   4) python2/2.7.10Job step resource usage:       JobID    JobName  AllocCPUS  MaxVMSize     MaxRSS    Elapsed ExitCode------------ ---------- ---------- ---------- ---------- ---------- --------13750925          hello          4                         00:00:07      0:013750925.0         true          2    270464K      1540K   00:00:00      0:013750925.1        orted          1          0          0   00:00:02      0:0Job 13750925 ("hello") completed on c2-[24,26] at Wed Jan 13 15:30:16 CET 201603:33 PM login-0-2 ~/mpi4py-example>#Calculating-pi-with-selfspawning-master-and-separate-client-python-script:#==============================03:30 PM login-0-2 ~/mpi4py-example> cat mpi.py#!/usr/bin/env pythonfrom mpi4py import MPIimport numpyimport sysimport osntasks = int(os.environ["SLURM_NTASKS"])print "number of processes", ntaskscomm = MPI.COMM_SELF.Spawn(sys.executable,                           args=['cpi.py'],                           maxprocs=ntasks-1)N = numpy.array(100, 'i')comm.Bcast([N, MPI.INT], root=MPI.ROOT)PI = numpy.array(0.0, 'd')comm.Reduce(None, [PI, MPI.DOUBLE],            op=MPI.SUM, root=MPI.ROOT)print(PI)comm.Disconnect()03:31 PM login-0-2 ~/mpi4py-example> cat cpi.py#!/usr/bin/env pythonfrom mpi4py import MPIimport numpycomm = MPI.Comm.Get_parent()size = comm.Get_size()rank = comm.Get_rank()N = numpy.array(0, dtype='i')comm.Bcast([N, MPI.INT], root=0)h = 1.0 / N; s = 0.0for i in range(rank, N, size):    x = h * (i + 0.5)    s += 4.0 / (1.0 + x**2)PI = numpy.array(s * h, dtype='d')comm.Reduce([PI, MPI.DOUBLE], None,            op=MPI.SUM, root=0)comm.Disconnect()03:31 PM login-0-2 ~/mpi4py-example> cat mpi.slurm#!/bin/bash# Job name:#SBATCH --job-name=ppipy## Project:#SBATCH --account=staff## Wall clock limit:#SBATCH --time=0:02:00## Max memory usage:#SBATCH --mem-per-cpu=1G#SBATCH --ntasks=4## Set up job environment:source /cluster/bin/jobsetupmodule purge   # clear any inherited modulesset -o errexit # exit on errorsmodule load openmpi.intelmodule load python2## Copy input files to the work directory:cp mpi.py cpi.py $SCRATCH## Do some work:cd $SCRATCHmpirun -np 1 python mpi.py03:31 PM login-0-2 ~/mpi4py-example> sbatch --ntasks 4 mpi.slurmSubmitted batch job 1375093103:32 PM login-0-2 ~/mpi4py-example> cat slurm-13750931.outStarting job 13750931 ("ppipy") on c16-33 at Wed Jan 13 15:32:34 CET 2016number of processes 43.14160098692Currently Loaded Modulefiles:  1) intel/2015.3          3) libffi/3.0.13  2) openmpi.intel/1.8.8   4) python2/2.7.10Job script resource usage:       JobID  MaxVMSize     MaxRSS------------ ---------- ----------13750931.ba+    813236K     25144KJob step resource usage:       JobID    JobName  AllocCPUS  MaxVMSize     MaxRSS    Elapsed ExitCode------------ ---------- ---------- ---------- ---------- ---------- --------13750931          ppipy          4                         00:00:05      0:0Job 13750931 ("ppipy") completed on c16-33 at Wed Jan 13 15:32:37 CET 201603:32 PM login-0-2 ~/mpi4py-example>
+﻿# To install mpi4py:
+#==============================
+
+module load openmpi.intel
+module load python2
+pip install --user mpi4py
+
+#hello world example:
+#==============================
+
+03:28 PM login-0-2 ~/mpi4py-example> cat hw.py
+#!/usr/bin/env python
+
+from mpi4py import MPI
+
+
+comm = MPI.COMM_WORLD
+
+print "Hello! I'm rank %d from %d running in total..." % (comm.rank, comm.size)
+
+comm.Barrier()   # wait for everybody to synchronize _here_
+
+03:28 PM login-0-2 ~/mpi4py-example> mpirun -np 4 hw.py
+
+03:28 PM login-0-2 ~/mpi4py-example> cat >> hw.slurm
+#!/bin/bash
+
+# Job name:
+#SBATCH --job-name=hello
+#
+# Project:
+#SBATCH --account=staff
+#
+# Wall clock limit:
+#SBATCH --time=0:02:00
+#
+# Max memory usage:
+#SBATCH --mem-per-cpu=1G
+
+#SBATCH --ntasks=4
+
+## Set up job environment:
+source /cluster/bin/jobsetup
+module purge   # clear any inherited modules
+set -o errexit # exit on errors
+
+module load openmpi.intel
+module load python2
+
+## Copy input files to the work directory:
+cp hw.py $SCRATCH
+
+## Do some work:
+cd $SCRATCH
+
+mpirun python hw.py
+
+
+03:29 PM login-0-2 ~/mpi4py-example> sbatch --ntasks 4 hw.slurm
+Submitted batch job 13750925
+03:32 PM login-0-2 ~/mpi4py-example> cat slurm-13750925.out
+Starting job 13750925 ("hello") on c2-[24,26] at Wed Jan 13 15:30:11 CET 2016
+Hello! I'm rank 0 from 4 running in total...
+Hello! I'm rank 3 from 4 running in total...
+Hello! I'm rank 1 from 4 running in total...
+Hello! I'm rank 2 from 4 running in total...
+
+Currently Loaded Modulefiles:
+  1) intel/2015.3          3) libffi/3.0.13
+  2) openmpi.intel/1.8.8   4) python2/2.7.10
+
+Job step resource usage:
+       JobID    JobName  AllocCPUS  MaxVMSize     MaxRSS    Elapsed ExitCode
+------------ ---------- ---------- ---------- ---------- ---------- --------
+13750925          hello          4                         00:00:07      0:0
+13750925.0         true          2    270464K      1540K   00:00:00      0:0
+13750925.1        orted          1          0          0   00:00:02      0:0
+
+Job 13750925 ("hello") completed on c2-[24,26] at Wed Jan 13 15:30:16 CET 2016
+03:33 PM login-0-2 ~/mpi4py-example>
+
+#Calculating-pi-with-selfspawning-master-and-separate-client-python-script:
+#==============================
+
+03:30 PM login-0-2 ~/mpi4py-example> cat >> mpi.py
+#!/usr/bin/env python
+from mpi4py import MPI
+import numpy
+import sys
+import os
+ntasks = int(os.environ["SLURM_NTASKS"])
+print "number of processes", ntasks
+comm = MPI.COMM_SELF.Spawn(sys.executable,args=['cpi.py'],maxprocs=ntasks-1)
+N = numpy.array(100, 'i')
+comm.Bcast([N, MPI.INT], root=MPI.ROOT)
+PI = numpy.array(0.0, 'd')
+comm.Reduce(None, [PI, MPI.DOUBLE],op=MPI.SUM, root=MPI.ROOT)
+print(PI)
+comm.Disconnect()
+
+
+03:31 PM login-0-2 ~/mpi4py-example> cat >> cpi.py
+#!/usr/bin/env python
+from mpi4py import MPI
+import numpy
+
+comm = MPI.Comm.Get_parent()
+size = comm.Get_size()
+rank = comm.Get_rank()
+
+N = numpy.array(0, dtype='i')
+comm.Bcast([N, MPI.INT], root=0)
+h = 1.0 / N; s = 0.0
+for i in range(rank, N, size):
+    x = h * (i + 0.5)
+    s += 4.0 / (1.0 + x**2)
+PI = numpy.array(s * h, dtype='d')
+comm.Reduce([PI, MPI.DOUBLE], None, op=MPI.SUM, root=0)
+
+comm.Disconnect()
+
+
+03:31 PM login-0-2 ~/mpi4py-example> cat >> mpi.slurm
+#!/bin/bash
+
+# Job name:
+#SBATCH --job-name=ppipy
+#
+# Project:
+#SBATCH --account=staff
+#
+# Wall clock limit:
+#SBATCH --time=0:02:00
+#
+# Max memory usage:
+#SBATCH --mem-per-cpu=1G
+
+#SBATCH --ntasks=4
+
+## Set up job environment:
+source /cluster/bin/jobsetup
+module purge   # clear any inherited modules
+set -o errexit # exit on errors
+
+module load openmpi.intel
+module load python2
+
+## Copy input files to the work directory:
+cp mpi.py cpi.py $SCRATCH
+
+## Do some work:
+cd $SCRATCH
+
+mpirun -np 1 python mpi.py
+03:31 PM login-0-2 ~/mpi4py-example> sbatch --ntasks 4 mpi.slurm
+Submitted batch job 13750931
+
+
+03:32 PM login-0-2 ~/mpi4py-example> cat slurm-13750931.out
+Starting job 13750931 ("ppipy") on c16-33 at Wed Jan 13 15:32:34 CET 2016
+number of processes 4
+3.14160098692
+
+Currently Loaded Modulefiles:
+  1) intel/2015.3          3) libffi/3.0.13
+  2) openmpi.intel/1.8.8   4) python2/2.7.10
+
+Job script resource usage:
+       JobID  MaxVMSize     MaxRSS
+------------ ---------- ----------
+13750931.ba+    813236K     25144K
+
+Job step resource usage:
+       JobID    JobName  AllocCPUS  MaxVMSize     MaxRSS    Elapsed ExitCode
+------------ ---------- ---------- ---------- ---------- ---------- --------
+13750931          ppipy          4                         00:00:05      0:0
+
+Job 13750931 ("ppipy") completed on c16-33 at Wed Jan 13 15:32:37 CET 2016
+03:32 PM login-0-2 ~/mpi4py-example>
+
