@@ -11,12 +11,13 @@ pip install --user mpi4py
 03:28 PM login-0-2 ~/mpi4py-example> cat hw.py
 #!/usr/bin/env python
 
+import os
 from mpi4py import MPI
 
 
 comm = MPI.COMM_WORLD
 
-print "Hello! I'm rank %d from %d running in total..." % (comm.rank, comm.size)
+print "Hello! I'm rank %d running on node %s from %d running in total..." % (comm.rank, os.uname()[1], comm.size)
 
 comm.Barrier()   # wait for everybody to synchronize _here_
 
