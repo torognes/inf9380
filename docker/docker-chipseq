@@ -74,4 +74,4 @@ awk '{print $2"_"$3"_"$4"\t"$1}' T1_INPUT_ib_count.txt > T1_INPUT_countR.txt
 awk '{print $2"_"$3"_"$4"\t"$1}' N1_INPUT_ib_count.txt > N1_INPUT_countR.txt
 
 * Normalization, comparing N1 and T1 and making plots in R:
-docker run --rm -v /Users/azabadm/Documents/NORBIS/docker-chipseq/:/dir/ -w /dir/ azab/chipseq Rscript chip_Rcommands.R
+docker run --rm -v /Users/azabadm/Documents/NORBIS/docker-chipseq/:/dir/ -w /dir/ azab/chipseq Rscript chipseq_Rcommands.R
