@@ -14,3 +14,16 @@ List of suiteable tools
 (if the tool is too big and has many parameters, you can omit a few of them)
 
 * [Canu](http://http://canu.readthedocs.org/) is a fork of the Celera Assembler - [Bioconda-Package](https://github.com/bioconda/bioconda-recipes/blob/master/recipes/canu/meta.yaml)
+* [CEAS](http://liulab.dfci.harvard.edu/CEAS) Cis-regulatory Element Annotation System - [Bioconda-Package](https://github.com/bioconda/bioconda-recipes/blob/master/recipes/ceas/meta.yaml)
+* [Chanjo](http://www.chanjo.co/) Coverage analysis tool for clinical sequencing [Bioconda-Package](https://github.com/bioconda/bioconda-recipes/blob/master/recipes/chanjo/meta.yaml)
+*  [circlator](https://github.com/sanger-pathogens/circlator) a tool to circularise genome assemblies'
+[Bioconda-Package](https://github.com/bioconda/bioconda-recipes/blob/master/recipes/circlator/meta.yaml)
+* [CNVkit](https://github.com/etal/cnvkit) Copy number variant detection from targeted DNA sequencing
+[Bioconda-Package](https://github.com/bioconda/bioconda-recipes/blob/master/recipes/cnvkit/meta.yaml)
+
+
+
+
+
+
+
