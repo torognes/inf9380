@@ -46,15 +46,6 @@ int main (int argc, char **argv)
     load_snps("MMR_1370_subject.raw.snps.vcf",snp1,cores,parallel);
     load_snps("MMR_664_control.raw.snps.vcf",snp2,cores,parallel);
 
-    if(parallel)
-    {
-        for(uint i=0;i<snp1.size();i++)
-        {
-            sort(snp1[i].begin(),snp1[i].end(),[](const snp &a,const snp &b){return a.pos<b.pos;});
-            sort(snp2[i].begin(),snp2[i].end(),[](const snp &a,const snp &b){return a.pos<b.pos;});
-        }
-    }
-
     int totNum = 0;
     vector<snp> newSnp;
     for(auto& i:snp1) {totNum+=i.size();newSnp.insert(newSnp.end(),i.begin(),i.end());}
@@ -171,7 +162,7 @@ int gets_term (char * temp,char term,char * target)
     return (iter+1);
 }
 
-void threadFile(int start,int finish,char * buffer,mutex &mut,Array<snp> &snp_arr)
+void threadFile(int start,int finish,char * buffer,mutex &mut,Array<snp> &snp_arr,int &tnum,int locnum)
 {
     vector<string> chroms;
     Array<snp> snp_arr_temp;
@@ -207,24 +198,34 @@ void threadFile(int start,int finish,char * buffer,mutex &mut,Array<snp> &snp_ar
             position += gets_term(temp,'\n',&buffer[position]);
         }
     }
-    mut.lock();
-    for(uint i=0;i<snp_arr_temp.size();i++)
+    bool terminate = false;
+    while(!terminate)
     {
-        int found = -1;
-        for(uint j=0;j<snp_arr.size();j++)
+        mut.lock();
+        if((tnum+1)==locnum)
         {
-            if(snp_arr_temp[i][0].chr==snp_arr[j][0].chr) {found = j; break;}
+            for(uint i=0;i<snp_arr_temp.size();i++)
+            {
+                int found = -1;
+                for(uint j=0;j<snp_arr.size();j++)
+                {
+                    if(snp_arr_temp[i][0].chr==snp_arr[j][0].chr) {found = j; break;}
+                }
+                if(found<0)
+                {
+                    snp_arr.push_back(snp_arr_temp[i]);
+                }
+                else
+                {
+                    snp_arr[found].insert(snp_arr[found].end(),snp_arr_temp[i].begin(),snp_arr_temp[i].end());
+                }
+            }
+            tnum++;
+            mut.unlock();
+            terminate = true;
         }
-        if(found<0)
-        {
-            snp_arr.push_back(snp_arr_temp[i]);
-        }
-        else
-        {
-            snp_arr[found].insert(snp_arr[found].end(),snp_arr_temp[i].begin(),snp_arr_temp[i].end());
-        }
+        else mut.unlock();
     }
-    mut.unlock();
 }
 
 void load_snps (string filename,Array<snp> &snp_arr,int cores,bool parallel)
@@ -248,13 +249,14 @@ void load_snps (string filename,Array<snp> &snp_arr,int cores,bool parallel)
         st_fin[0]=0;
         st_fin[cores]=Size-1;
         char te [10000];
-        for(int i=1;i<cores;i++) st_fin[i]=i*div+gets_term(te,'\n',&buffer[i*div]);;
+        for(int i=1;i<cores;i++) st_fin[i]=i*div+gets_term(te,'\n',&buffer[i*div]);
+        int tnum = 0;
         for(int i=0;i<cores;i++)
         {
             int start = st_fin[i];
             int finish = st_fin[i+1];
             if(i!=0) start++;
-            threads[i] = thread(threadFile,start,finish,&buffer[0],ref(mut),ref(snp_arr));
+            threads[i] = thread(threadFile,start,finish,&buffer[0],ref(mut),ref(snp_arr),ref(tnum),i+1);
         }
 
         for(auto& th : threads)
