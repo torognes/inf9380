@@ -8,8 +8,8 @@ Galaxy Docker excersice
 * push the Flavour to DockerHub (docker push)
 
 
-List of suiteable tools
------------------------
+List of suitable tools
+----------------------
 
 (if the tool is too big and has many parameters, you can omit a few of them)
 
