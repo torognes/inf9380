@@ -1,3 +1,10 @@
+#In order to run the following command (without MPI):
+
+module load bowtie
+bowtie -p 7 -S -v 2 -m 1 data/saci data/N1_CHIP.fastq > N1_CHIP.sam
+
+#This is how to run it with MPI:
+
 module load bowtie
 bowtie-build -f data/saci.fasta data/saci
 module load pmap
