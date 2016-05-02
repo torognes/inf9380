@@ -8,3 +8,8 @@ Now we have the final results for both our subject and our control. However, wha
 want to look at, are the SNPs that are there in the subject, but not in the control. Make a
 python scripts that does this with an option to parallelize. 
 
+You should write a python script that compare the two vcf files and store the difference in a third vcf. 
+* Create a serial code
+* Create a parallel code
+* report the overall time (both ``real`` and ``user`` time) for each
+
