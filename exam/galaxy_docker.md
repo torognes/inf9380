@@ -1,5 +1,5 @@
-Galaxy Docker excersice
-------------------------
+Galaxy Docker excersice (for PhD students)
+-------------------------------------------
 
 * Wrap a tool from the list below (coordination between students welcome) or wrap your own tool (more than 5 parameters)
 * Test your tool with planemo (`planemo lint` & `planemo test`)
