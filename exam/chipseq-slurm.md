@@ -1,5 +1,9 @@
 # Guidelines to build the chipseq workflow as a SLURM workflow (For everybody)
+
+Use the data in ``/work/projects/norbis/exam/reference_data`` and ``/work/projects/norbis/exam/data``
+
 First, create the index files using ``bowtie-build`` then follow these guidelines:
+
 1. Use ``pmap`` to do the bowtie alignemnt using MPI
 -----------------------------------------------------
 Lookup [``bowtie-with-mpi``](bowtie-with-mpi) for details. Try to use a suitable number of MPI processes to get the best speedup with minimal parallelization overhead.
