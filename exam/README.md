@@ -8,10 +8,10 @@ If you have any questions, please contact Torbjørn Rognes (torognes@ifi.uio.no 
 
 The exam consists of three parts:
 
-1. ChIP-Seq SLURM workflow (for everybody) [link](https://github.com/torognes/inf9380/new/master/exam/chipseq-slurm.md)
+1. ChIP-Seq SLURM workflow (for everybody) [link](https://github.com/torognes/inf9380/blob/master/exam/chipseq-slurm.md)
 
-2. Differences between two VCF files (for everybody) [link](https://github.com/torognes/inf9380/new/master/exam/compare-two-vcf-files.md)
+2. Differences between two VCF files (for everybody) [link](https://github.com/torognes/inf9380/blob/master/exam/compare-two-vcf-files.md)
 
-3. Galaxy Docker (only for PhD students) [link](https://github.com/torognes/inf9380/new/master/exam/galaxy_docker.md)
+3. Galaxy Docker (only for PhD students) [link](https://github.com/torognes/inf9380/blob/master/exam/galaxy_docker.md)
 
 PhD students must complete all three parts, while master students only need to complete the two first parts. Those who have already completed part 2 should include their code and the timing results with their delivery.
