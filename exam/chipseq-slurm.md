@@ -36,7 +36,11 @@ Report the overall time (both ``real`` and ``user``) for running each of those s
 You are almost there :)
 
 * Create a ``sdag`` script for the whole workflow. Define a ``JOB XX`` for each step. An ``arrayrun`` script should also be defined as a single ``sdag`` job.
-* Submit your ``sdag`` workflow and report the overall time (both ``real`` and ``user``).
+* Submit your ``sdag`` workflow and report the overall time. Here calculating the time is a bit tricky since the ``sdag`` command returns immediately. So, do the following: 
+  * Get the job starting time of the first job of the workflow, e.g. ``Starting job ... on ... at <TIME>``
+  * Subtract it from the finishing time of the last job in the workflow, e.g. ``Job ... completed on ... at <TIME>``
+  * Here you can report only one overall time (no ``real`` or ``user``)
+  * The start/finishing times can be found on the file ``slurm-<job-id>.out``, and as you know ``sdag`` gives you the IDs of all submitted workflow jobs.
 * Repeat the previous with a ``sdag`` workflow without using ``arrayrun`` but with bowtie and MPI, and another time without ``arrayrun`` and without MPI and report the time.
 
 5. Create a setup manual
