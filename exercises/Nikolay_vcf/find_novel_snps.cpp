@@ -13,8 +13,7 @@
 
 using namespace std;
 
-bool TO_PLOT = false;
-bool BRING_FORTH_THE_IMMORTAL_DOG = true;
+bool BRING_FORTH_THE_IMMORTAL_DOG = false;
 
 template<class T>
 using Array = vector<vector<T> >;
@@ -24,6 +23,7 @@ struct snp
     int pos;
     char alt;
     string chr;
+    int file_pos;
 };
 
 void runThread(int start,int finish,snp * snp1,Array<snp> snp2,mutex &mut,vector<snp> &results);
@@ -34,28 +34,44 @@ void load_snps (string filename,Array<snp> &snp_arr,int cores,bool parallel);
 
 int main (int argc, char **argv)
 {
+    if(BRING_FORTH_THE_IMMORTAL_DOG) {printf("\n\nThe IMMORTAL DOG uses \"return 1\"! It's supereffective!!!\n\n");return 1;}
+
     int cores = 1;
     bool parallel = true;
+    string filenameSubject;
+    string filenameControl;
     if (argc>1) {if((string)argv[1]=="u") parallel=false; else cores = atoi(argv[1]);}
+    if (argc>3) 
+    {
+        filenameSubject = (string)argv[2];
+        filenameControl = (string)argv[3];
+    }
+    else
+    {
+        filenameSubject = "MMR_1370_subject.raw.snps.vcf";
+        filenameControl = "MMR_664_control.raw.snps.vcf";
+    }
+        
 
     if (parallel) printf("\nThread number used: %i\n",cores);
     else printf("\nUnthreaded!\n");
 
     Array<snp> snp1;
     Array<snp> snp2;
-    load_snps("MMR_1370_subject.raw.snps.vcf",snp1,cores,parallel);
-    load_snps("MMR_664_control.raw.snps.vcf",snp2,cores,parallel);
+    load_snps(filenameSubject,snp1,cores,parallel); //MMR_1370_subject.raw.snps.vcf
+    load_snps(filenameControl,snp2,cores,parallel);  //MMR_664_control.raw.snps.vcf
 
     int totNum = 0;
     vector<snp> newSnp;
     for(auto& i:snp1) {totNum+=i.size();newSnp.insert(newSnp.end(),i.begin(),i.end());}
     int totNum2 = 0;
     for(auto& i:snp2) {totNum2+=i.size();}
-    printf("Your loaded numbers are: %i and %i\n",totNum,totNum2);
+    printf("Numbers of snps in the loaded files are: %i and %i\n",totNum,totNum2);
+
+    vector<snp> notFounds;
 
     if(!parallel)
     {
-        vector<snp> notFounds;
         for(uint i=0;i<snp1.size();i++)
         {
             for(uint j=0;j<snp1[i].size();j++)
@@ -64,13 +80,11 @@ int main (int argc, char **argv)
                 if(fo<0 || snp1[i][j].alt!=snp2[i][fo].alt) notFounds.push_back(snp1[i][j]);
             }
         }
-        printf("Found unknown snp number: %i\n",(int)notFounds.size());
+        printf("Found this number of unkonwn snps: %i\n",(int)notFounds.size());
     }
     else
     {
         thread threads [cores];
-
-        vector<snp> results;
         mutex mut;
         int div = totNum/cores;
         for(int i=0;i<cores;i++)
@@ -78,7 +92,7 @@ int main (int argc, char **argv)
             int start = i*div;
             int finish = (i+1)*div-1;
             if(i==(cores-1)) finish = newSnp.size()-1;
-            threads[i] = thread(runThread,start,finish,&newSnp[0],snp2,ref(mut),ref(results));
+            threads[i] = thread(runThread,start,finish,&newSnp[0],snp2,ref(mut),ref(notFounds));
         }
 
         for(auto& th : threads)
@@ -86,9 +100,46 @@ int main (int argc, char **argv)
             th.join();
         }
 
-        printf("Number of unfounds: %i\n",(int)results.size());
+        printf("Found this number of unkonwn snps: %i\n",(int)notFounds.size());
     }
 
+    FILE * output;
+    output = fopen("differences.vcf","w");
+
+    ifstream templ(filenameSubject.c_str(), ios::binary | ios::ate);
+    streamsize Size = templ.tellg();
+    templ.seekg(0, ios::beg);
+    vector<char> buffer(Size);
+    templ.read(buffer.data(), Size);
+    templ.close();
+
+
+    int position = 0;
+    int iter = 0;
+    int iter_snp = 0;
+    while(position<(int)buffer.size())
+    {
+        iter++;
+        char temp [10000];
+        if(buffer[position]=='c')
+        {
+            if(position==notFounds[iter_snp].file_pos)
+            {
+                position += gets_term(temp,'\n',&buffer[position]);
+                fprintf(output,"%s\n",temp);
+                iter_snp++;
+            }
+            else position += gets_term(temp,'\n',&buffer[position]);   
+        }
+        else
+        {
+            position += gets_term(temp,'\n',&buffer[position]);
+            fprintf(output,"%s\n",temp);
+        }
+    }
+
+    fclose(output);
+    
     return 0;
 }
 
@@ -175,6 +226,7 @@ void threadFile(int start,int finish,char * buffer,mutex &mut,Array<snp> &snp_ar
         if(buffer[position]=='c')
         {
             snp SNP;
+            SNP.file_pos = position;
             position += gets_term(temp,'\t',&buffer[position]);
             SNP.chr=(string)temp;
             int chr_pos = find_string(chroms,SNP.chr);
@@ -276,6 +328,7 @@ void load_snps (string filename,Array<snp> &snp_arr,int cores,bool parallel)
             if(buffer[position]=='c')
             {
                 snp SNP;
+                SNP.file_pos = position;
                 position += gets_term(temp,'\t',&buffer[position]);
                 SNP.chr=(string)temp;
                 int chr_pos = find_string(chroms,SNP.chr);
