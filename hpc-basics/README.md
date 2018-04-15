@@ -15,6 +15,7 @@ Computer Architecture
 * [RAM explained (15 mins video)](https://www.youtube.com/watch?v=PVad0c2cljo)
 * [CPU Cache explained (5 mins video)](https://www.youtube.com/watch?v=yi0FhRqDJfo)
 * [Chipset explained (5 mins video)](https://www.youtube.com/watch?v=eJn-qPHtfzI)
+* [Hard Disk Drives explained (7:22 mins video)](https://www.youtube.com/watch?v=NtPc0jI21i0)
 
 * Extra:
   - [How a CPU is made (10 mins video)](https://www.youtube.com/watch?v=qm67wbB5GmI&index=17&list=PLLiEBFegIj45e_wEshH1qWScNKkHgv0hu&t=0s)
