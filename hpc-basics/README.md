@@ -3,6 +3,7 @@
 Computer Arithmatic
 --------------------
 * [Introduction to binary numbers (7 mins video)](https://www.youtube.com/watch?v=b7pOcU1xMks&index=15&list=PLLiEBFegIj45e_wEshH1qWScNKkHgv0hu&t=0s)
+* [Hands-on Lab](https://logic.ly/)
 
 Computer Architecture
 -----------------------
