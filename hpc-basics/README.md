@@ -28,3 +28,9 @@ Computer networking
 * [Basic networking (4 mins video)](https://www.youtube.com/watch?v=ObNYlm7HJs8)
 * [The OSI Model (10 mins video)](https://www.youtube.com/watch?v=-6Uoku-M6oY)
 * [Hub, switch & router explained (7 mins video)](https://www.youtube.com/watch?v=1z0ULvg_pW8)
+
+High-performance Sceintific computing
+---------------------------------------
+* [Presenting HPC (8 mins video)](https://www.youtube.com/watch?v=TGSRvV9u32M&t=16s)
+* [Simplifying High Performance Computing Architectures (20 mins video)](https://www.youtube.com/watch?v=ISS_OGVamBk&t=4s)
+* [Simplifying Cluster Architectures (13 mins video)](https://www.youtube.com/watch?v=4M3cROio9vU&t=474s)
