@@ -13,6 +13,7 @@ Computer Architecture
 * [What is inside CPU (3:40 mins video)](https://www.youtube.com/watch?v=NKYgZH7SBjk&index=1&list=PLLiEBFegIj45e_wEshH1qWScNKkHgv0hu)
 * [How a CPU works (20 mins video)](https://www.youtube.com/watch?v=cNN_tTXABUA)
 * [Hyper threading explained (4 mins video)](https://www.youtube.com/watch?v=lrT9Bl0MCXQ) 
+* [Pipelining in Computer Architecture (2 mins video)](https://www.youtube.com/watch?v=ecCt6HPlPeA)
 * [CPU vs GPU (2:35 mins video)](https://www.youtube.com/watch?v=5OtXBeu0RKw&index=14&list=PLLiEBFegIj45e_wEshH1qWScNKkHgv0hu)
 * [RAM explained (15 mins video)](https://www.youtube.com/watch?v=PVad0c2cljo)
 * [CPU Cache explained (5 mins video)](https://www.youtube.com/watch?v=yi0FhRqDJfo)
