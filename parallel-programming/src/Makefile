@@ -4,7 +4,7 @@ clean :
 	rm parallel serial gmon.out
 
 serial : serial.c Makefile
-	gcc -o serial serial.c -Wall -g
+	gcc -Wall -g -o serial serial.c
 
 parallel : parallel.c Makefile
-	gcc -o parallel parallel.c -Wall -g -pthread
+	gcc -Wall -g -pthread -o parallel parallel.c
