@@ -37,3 +37,6 @@ High-performance Sceintific computing
 * [Simplifying Cluster Architectures (13 mins video)](https://www.youtube.com/watch?v=4M3cROio9vU&t=474s)
 * [Top5 supercomputers in the world (5:33 mins video)](https://www.youtube.com/watch?v=LB0Yn7zCzak)
 
+HTCondor Tutorial
+------------------
+[HTCondor with docker universe](https://github.com/abdulrahmanazab/docker-training-neic/blob/abel-course/docker-htcondor.md)
