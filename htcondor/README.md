@@ -331,7 +331,7 @@ HTCondor Java universe
   sudo yum install -y java-1.8.0-openjdk-devel
   ```
 * Reconfigure HTCondor, run ``condor_reconfig``
-* Now check the HTCondor can see the java installation:
+* Now check that HTCondor can see the java installation:
   ```bash
   $ condor_status -java
   Name                JavaVendor         Ver       State     Activity LoadAv Mem   ActvtyTime
