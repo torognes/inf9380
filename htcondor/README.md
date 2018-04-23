@@ -1,4 +1,4 @@
-# Install Personal HTCondor cluster
+# Install Personal HTCondor
 
 Install HTCondor on RHEL7/CentOS7
 -----------------------------------
