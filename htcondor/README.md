@@ -321,7 +321,73 @@ Python job on HTCondor
   queue 3
   ```
   4. Now submit the job and check out ``out0.txt``, ``out1.txt``, and ``out2.txt``. Also check out ``job0.out``,``job1.out``, and ``job2.out``
-  
+
+HTCondor Java universe
+-----------------------
+* Install java
+  ```bash
+  sudo yum install -y java-1.8.0-openjdk-headless
+  sudo yum install -y java-1.8.0-openjdk-devel
+  ```
+* Reconfigure HTCondor, run ``condor_reconfig``
+* Now check the HTCondor can see the java installation:
+  ```bash
+  $ condor_status -java
+  Name                JavaVendor         Ver       State     Activity LoadAv Mem   ActvtyTime
+
+  norbis-35.novalocal Oracle Corporation 1.8.0_161 Unclaimed Idle      0.000 3790  0+00:25:31
+
+                 Machines Owner Claimed Unclaimed Matched Preempting  Drain
+
+    X86_64/LINUX        1     0       0         1       0          0      0
+
+           Total        1     0       0         1       0          0      0
+  ```
+* Make a [simple java application](http://research.cs.wisc.edu/htcondor/manual/v7.6/2_8Java_Applications.html#SECTION00381000000000000000) 
+
+HTCondor Docker universe
+-------------------------
+First make sure that Docker is installed. In this example we will use the ubuntu image from the Docker hub
+
+* Submit a job to the docker universe
+```bash
+$ cat > docker_job.sub
+universe = docker
+docker_image = ubuntu
+executable = /bin/cat
+arguments = /etc/os-release
+output = docker_job.out
+error = docker_job.err
+queue
+ctrl+D
+
+$ condor_submit docker_job.sub
+Submitting job(s).
+1 job(s) submitted to cluster 12.
+
+$ condor_q
+
+
+-- Schedd: docker-test.novalocal : <192.168.1.126:9618?... @ 05/28/17 23:10:40
+OWNER      BATCH_NAME       SUBMITTED   DONE   RUN    IDLE  TOTAL JOB_IDS
+cloud-user CMD: /bin/cat   5/28 23:10      _      1      _      1 12.0
+
+1 jobs; 0 completed, 0 removed, 0 idle, 1 running, 0 held, 0 suspended
+
+$ cat docker_job.out
+NAME="Ubuntu"
+VERSION="16.04.2 LTS (Xenial Xerus)"
+ID=ubuntu
+ID_LIKE=debian
+PRETTY_NAME="Ubuntu 16.04.2 LTS"
+VERSION_ID="16.04"
+HOME_URL="http://www.ubuntu.com/"
+SUPPORT_URL="http://help.ubuntu.com/"
+BUG_REPORT_URL="http://bugs.launchpad.net/ubuntu/"
+VERSION_CODENAME=xenial
+UBUNTU_CODENAME=xenial
+```
+
 Useful links
 -------------
 * [Install Condor](https://research.cs.wisc.edu/htcondor/instructions/el/7/stable/)
