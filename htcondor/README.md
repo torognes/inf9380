@@ -206,7 +206,7 @@ Python job on HTCondor
   ```
   4. Now create the job submission script:
   ```bash
-  $ cat pyjob.sub
+  $ cat > pyjob.sub
   universe = vanilla
   executable = /usr/bin/python
   arguments = readwrite.py in.txt 30
