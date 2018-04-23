@@ -71,20 +71,20 @@ $ cat job.out
 Sun Jan 22 11:05:40 UTC 2017
 ```
 * Submit a job with a simple executable
-  * make the executable:
+  1. make the executable:
   ```bash
   $ cat > think.sh
   echo thinking really hard for $1 seconds ...
   sleep $1
   echo Done!
   ```
-  * Try it out:
+  2. Try it out:
   ```bash
   $ sh think.sh 5
   thinking really hard for 5 seconds ...
   Done!
   ```
-  * Now create the job and submit it:
+  3. Now create the job and submit it:
   ```bash
   $ cat > think.sub
   universe = vanilla
@@ -108,15 +108,15 @@ Sun Jan 22 11:05:40 UTC 2017
   Total for centos: 1 jobs; 0 completed, 0 removed, 1 idle, 0 running, 0 held, 0 suspended
   Total for all users: 1 jobs; 0 completed, 0 removed, 1 idle, 0 running, 0 held, 0 suspended
   ```
-  * Now check your output file:
+  4. Now check your output file:
   ```bash
   $ cat job.out
   thinking really hard for 30 seconds ...
   Done!
   ```
 * Use the log file:
-  * Add this line to the ``think.sub`` file: ``log = job.log``
-  * Submit again:
+  1. Add this line to the ``think.sub`` file: ``log = job.log``
+  2. Submit again:
   ```bash
   condor_submit think.sub
   Submitting job(s).
@@ -132,7 +132,7 @@ Sun Jan 22 11:05:40 UTC 2017
   Total for centos: 1 jobs; 0 completed, 0 removed, 1 idle, 0 running, 0 held, 0 suspended
   Total for all users: 1 jobs; 0 completed, 0 removed, 1 idle, 0 running, 0 held, 0 suspended
   ```
-  * Now check your log file:
+  3. Now check your log file:
   ```bash
   $ cat job.log
   000 (005.000.000) 04/23 08:00:44 Job submitted from host: <158.37.63.80:9618?addrs=158.37.63.80-9618+[2001-700-2-8200--2106]-9618&noUDP&sock=19042_ce7f_4>
@@ -159,85 +159,159 @@ Sun Jan 22 11:05:40 UTC 2017
        Memory (MB)          :        1        1      3790
   ...
   ```
-* Submit a job to the docker universe
-```bash
-$ cat > docker_job.sub
-universe = docker
-docker_image = ubuntu
-executable = /bin/cat
-arguments = /etc/os-release
-output = docker_job.out
-error = docker_job.err
-queue
-ctrl+D
+Python job on HTCondor
+-----------------------
+* Submit a simple python job that reads a file and writes an output
+  1. Create a simple input file:
+  ```bash
+  $ cat > in.txt
+  This is input text file!
+  ```
+  2. Create the python script:
+  ```python
+  $ cat readwrite.py
+  import sys
+  import time
+  f = open(sys.argv[1],'r')
+  input = f.read()
 
-$ condor_submit docker_job.sub
-Submitting job(s).
-1 job(s) submitted to cluster 12.
+  print 'This is the input line:\n'+ 20*'='+'\n' + input + 20*'='
 
-$ condor_q
+  print 'Thinking for ' + sys.argv[2] + ' seconds...'
+  time.sleep(int(sys.argv[2]))
 
+  print '\nNow we are done! :)'
+  ```
+  3. Try the script:
+  ```bash
+  $ python readwrite.py in.txt 5
+  This is the input line:
+  ====================
+  This is input text file!
+  ====================
+  Thinking for 5 seconds...
 
--- Schedd: docker-test.novalocal : <192.168.1.126:9618?... @ 05/28/17 23:10:40
-OWNER      BATCH_NAME       SUBMITTED   DONE   RUN    IDLE  TOTAL JOB_IDS
-cloud-user CMD: /bin/cat   5/28 23:10      _      1      _      1 12.0
+  Now we are done! :)
+  ```
+  4. Now create the job submission script:
+  ```bash
+  $ cat pyjob.sub
+  universe = vanilla
+  executable = /usr/bin/python
+  arguments = readwrite.py in.txt 30
+  transfer_input_files = readwrite.py, in.txt
+  output = job.out
+  log = job.log
+  error = job.err
+  queue
+  ```
+  5. Submit your job and see the output:
+  ```bash
+  $ condor_submit pyjob.sub
+  Submitting job(s).
+  1 job(s) submitted to cluster 12.
+  ....
+  $ cat job.out
+  This is the input line:
+  ====================
+  This is input text file!
+  ====================
+  Thinking for 30 seconds...
 
-1 jobs; 0 completed, 0 removed, 0 idle, 1 running, 0 held, 0 suspended
+  Now we are done! :)
+  ```
+  6. Let's modify the python script to write the output to a file:
+  ```bash
+  $ cat > readwrite2.py
+  import sys
+  import time
+  f = open(sys.argv[1],'r')
+  input = f.read()
 
-$ cat docker_job.out
-NAME="Ubuntu"
-VERSION="16.04.2 LTS (Xenial Xerus)"
-ID=ubuntu
-ID_LIKE=debian
-PRETTY_NAME="Ubuntu 16.04.2 LTS"
-VERSION_ID="16.04"
-HOME_URL="http://www.ubuntu.com/"
-SUPPORT_URL="http://help.ubuntu.com/"
-BUG_REPORT_URL="http://bugs.launchpad.net/ubuntu/"
-VERSION_CODENAME=xenial
-UBUNTU_CODENAME=xenial
-```
-HTCondor Docker job with mounted volumes
----------------------------------------
-* Create directories for input/output volumes
-```bash
-mkdir docker_in
-echo hello! > docker_in/infile
-mkdir docker_out
-```
-* Configure Condor to mount volumes on Docker images, as root:
-```bash
-$ sudo cat > /etc/condor/config.d/docker
-#Define volumes to mount:
-DOCKER_VOLUMES = DOCKER_IN, DOCKER_OUT
+  fw = open ('out.txt','w')
 
-#Define a mount point for each volume:
-DOCKER_VOLUME_DIR_DOCKER_IN = /home/cloud-user/docker_in:/input:ro
-DOCKER_VOLUME_DIR_DOCKER_OUT = /home/cloud-user/docker_out:/output:rw
+  print >> fw, 'This is the input line:\n'+ 20*'='+'\n' + input + 20*'='
 
-#Configure those volumes to be mounted on each Docker container:
-DOCKER_MOUNT_VOLUMES = DOCKER_IN, DOCKER_OUT
-ctrl+D
-```
-* Create the submission script and submit the job
-```bash
-$ cat > docker_volumes_job.sub
-universe = docker
-docker_image = centos
-executable = /bin/cp
-arguments = /input/infile /output/outfile
-output = docker_volumes_job.out
-error = docker_volumes_job.err
-queue
-ctrl+D
+  print 'Thinking for ' + sys.argv[2] + ' seconds...'
+  time.sleep(int(sys.argv[2]))
 
-$ condor_submit docker_volumes_job.sub
-Submitting job(s).
-1 job(s) submitted to cluster 7.
-$ cat docker_out/outfile
-hello!
-```
+  print '\nNow we are done! :)'
+  ```
+  7. Now modify the submission script to capture the output file:
+  ```bash
+  $ cat pyjob2.sub
+  universe = vanilla
+  executable = /usr/bin/python
+  arguments = readwrite2.py in.txt 30
+  transfer_input_files = readwrite.py, in.txt
+  transfer_output_files = out.txt
+  output = job.out
+  log = job.log
+  error = job.err
+  queue
+  ```
+  8. Submit the new job and check both the standard output and the job output files, ``job.out`` and ``out.txt``:
+  ```bash
+  $ condor_submit pyjob.sub
+  Submitting job(s).
+  1 job(s) submitted to cluster 13.
+  .....
+  $ cat job.out
+  Thinking for 30 seconds...
 
+  Now we are done! :)
+  $ cat out.txt
+  This is the input line:
+  ====================
+  This is input text file!
+  ====================
+  ```
+* Create a parallel HTCondor job
+  1. Generate 3 input files:
+  ```bash
+  $ cat > in0.txt
+  This is input text file 0!
+  $ cat > in1.txt
+  This is input text file 1!
+  $ cat > in2.txt
+  This is input text file 2!
+  ```
+  2. Create a new python script:
+  ```python
+  $ cat > readwrite_many.py
+  import sys
+  import time
+
+  # The file index
+  index = sys.argv[1]
+
+  f = open('in'+index+'.txt','r')
+  input = f.read()
+
+  fw = open ('out'+index+'.txt','w')
+
+  print >> fw, 'This is the input line:\n'+ 20*'='+'\n' + input + 20*'='
+
+  print 'Thinking for ' + sys.argv[2] + ' seconds...'
+  time.sleep(int(sys.argv[2]))
+
+  print '\nNow we are done! :)'
+  ```
+  3. Create a submission script:
+  ```bash
+  $ cat > pyjob_many.sub
+  universe = vanilla
+  executable = /usr/bin/python
+  arguments = readwrite_many.py $(process) $(process)
+  transfer_input_files = readwrite_many.py, in$(process).txt
+  transfer_output_files = out$(process).txt
+  output = job$(process).out
+  log = job.log
+  error = job$(process).err
+  queue 3
+  ```
+  4. Now submit the job and check out ``out0.txt``, ``out1.txt``, and ``out2.txt``. Also check out ``job0.out``,``job1.out``, and ``job2.out``
+  
 Useful links
 -------------
 * [Install Condor](https://research.cs.wisc.edu/htcondor/instructions/el/7/stable/)
