@@ -180,7 +180,7 @@ Python job on HTCondor
   ```
   2. Create the python script:
   ```python
-  $ cat readwrite.py
+  $ cat > readwrite.py
   import sys
   import time
   f = open(sys.argv[1],'r')
