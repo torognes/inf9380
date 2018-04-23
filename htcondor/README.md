@@ -2,7 +2,8 @@
 
 Install HTCondor on RHEL7/CentOS7
 -----------------------------------
-* After installing docker, install htcondor
+* Since we are planning to use HTCondor with Docker, first you need to [install docker](https://github.com/torognes/inf9380/blob/master/docker/install-docker.md)
+* Install HTCondor
 ```bash
 # install wget
 sudo yum install -y wget
@@ -15,6 +16,8 @@ sudo wget http://research.cs.wisc.edu/htcondor/yum/RPM-GPG-KEY-HTCondor
 sudo rpm --import RPM-GPG-KEY-HTCondor
 # Install condor
 sudo yum install condor.x86_64
+# Enable condor to run docker
+sudo usermod -aG docker condor
 # Start condor
 sudo service condor start
 ```
@@ -40,6 +43,13 @@ norbis-35.novalocal LINUX      X86_64 Unclaimed Idle      0.000 3790  0+00:24:35
   X86_64/LINUX        1     0       0         1       0          0      0
 
          Total        1     0       0         1       0          0      0
+```
+* Verify that condor detects that docker is installed
+```bash
+$ condor_status -l | grep Docker
+DockerVersion = "Docker version 17.03.1-ce, build c6d412e"
+HasDocker = true
+StarterAbilityList = "HasDocker,HasFileTransfer,HasTDP,HasPerFileEncryption,HasVM,HasReconnect,HasMPI,HasFileTransferPluginMethods,HasJobDeferral,HasJICLocalStdin,HasJICLocalConfig"
 ```
 Use HTCondor
 ------------
