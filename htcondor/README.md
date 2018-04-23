@@ -2,7 +2,8 @@
 
 Install HTCondor on RHEL7/CentOS7
 -----------------------------------
-* Since we are planning to use HTCondor with Docker, first you need to [install docker](https://github.com/torognes/inf9380/blob/master/docker/install-docker.md)
+Since we will use HTCondor with Docker, first you need to [install docker](https://github.com/torognes/inf9380/blob/master/docker/install-docker.md)
+
 * Install HTCondor
 ```bash
 # install wget
