@@ -250,7 +250,7 @@ Python job on HTCondor
   ```
   7. Now modify the submission script to capture the output file:
   ```bash
-  $ cat pyjob2.sub
+  $ cat > pyjob2.sub
   universe = vanilla
   executable = /usr/bin/python
   arguments = readwrite2.py in.txt 30
@@ -263,7 +263,7 @@ Python job on HTCondor
   ```
   8. Submit the new job and check both the standard output and the job output files, ``job.out`` and ``out.txt``:
   ```bash
-  $ condor_submit pyjob.sub
+  $ condor_submit pyjob2.sub
   Submitting job(s).
   1 job(s) submitted to cluster 13.
   .....
