@@ -1,0 +1,13 @@
+#!/bin/bash
+
+#SBATCH --ntasks-per-node=8
+#SBATCH --account=staff --time=0:15:0 --mem-per-cpu=2G
+
+source /cluster/bin/jobsetup
+
+module purge
+module load R/3.4.4
+module load openmpi.intel/1.10.2
+module list
+
+time mpirun -np 1 R --slave CMD BATCH parallel_mpi.R
