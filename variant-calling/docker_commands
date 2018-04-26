@@ -1,3 +1,7 @@
+Path to files in abel:
+/work/projects/norbis/workflows/snp_docker/data/mouse_ref.fa
+/work/projects/norbis/workflows/snp_docker/data/small.fastq
+
 
 ### docker image commands
 ### Initial prep
