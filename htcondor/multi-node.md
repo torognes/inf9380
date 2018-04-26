@@ -1,5 +1,17 @@
-Install multi-node cluster
----------------------------
+Custom machine classad attributes
+----------------------------------
+You may configure custom classad attributes. An example:
+
+* Install R:
+```bash
+sudo yum install epel-release -y
+sudo yum install R -y
+```
+* Add the following to ``/etc/condor/condor_config``:
+```bash
+HAS_R = TRUE
+STARTD_EXPRS = HAS_R
+```
 
 Shared disk between VMs using sshfs
 ------------------------------------
@@ -30,3 +42,6 @@ Add the following line to ``/etc/crontab``:
 ```bash
 @reboot sshfs -o allow_other,auto_unmount root@<shared-vm IP>:/local-shared /shared 
 ```
+Useful material
+----------------
+[Tutorial](http://research.cs.wisc.edu/htcondor/tutorials/fermi-2005/)
