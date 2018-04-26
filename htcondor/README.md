@@ -16,11 +16,12 @@ sudo wget https://research.cs.wisc.edu/htcondor/yum/repo.d/htcondor-stable-rhel7
 sudo wget http://research.cs.wisc.edu/htcondor/yum/RPM-GPG-KEY-HTCondor
 sudo rpm --import RPM-GPG-KEY-HTCondor
 # Install condor
-sudo yum install condor.x86_64
+sudo yum install -y condor.x86_64
 # Enable condor to run docker
 sudo usermod -aG docker condor
-# Start condor
+# Start condor and enable it on start
 sudo service condor start
+sudo systemctl enable docker
 ```
 * Verify that condor is up and running
 ```bash
