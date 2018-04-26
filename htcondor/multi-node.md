@@ -17,4 +17,5 @@ chmod +rw /shared
 sshfs -o allow_other,auto_unmount root@<shared-vm IP>:/local-shared /shared
 ```
 *Use the root password for the shared VM*
+
 Now all users will have access to /shared 
