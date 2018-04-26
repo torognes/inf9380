@@ -21,7 +21,7 @@ sudo yum install -y condor.x86_64
 sudo usermod -aG docker condor
 # Start condor and enable it on start
 sudo service condor start
-sudo systemctl enable docker
+sudo systemctl enable condor
 ```
 * Verify that condor is up and running
 ```bash
