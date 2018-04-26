@@ -12,7 +12,17 @@ sudo yum install R -y
 HAS_R = TRUE
 STARTD_EXPRS = HAS_R
 ```
-
+Install a multi-node cluster
+-----------------------------
+* On the broker node, add:
+```bash
+ALLOW_WRITE = $(ALLOW_WRITE),$(IP_ADDRESS), <reg-node1-IPAddress>, <reg-node2-IPAddress>, ...
+```
+* On the regular nodes config file, add:
+```bash
+CONDOR_HOST = <broker-IPAddress>
+ALLOW_WRITE = $(ALLOW_WRITE), $(CONDOR_HOST)
+```
 Shared disk between VMs using sshfs
 ------------------------------------
 This is how to configure a shared VM to have a shared disk:
