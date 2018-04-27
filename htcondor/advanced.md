@@ -40,6 +40,10 @@ ALLOW_WRITE = $(ALLOW_WRITE),$(IP_ADDRESS), <reg-node1-IPAddress>, <reg-node2-IP
 CONDOR_HOST = <broker-IPAddress>
 ALLOW_WRITE = $(ALLOW_WRITE), $(CONDOR_HOST)
 ```
+* run ``condor_status`` to see both nodes. Troubleshoot by running:
+```bash
+tail -n5 $(condor_config_val COLLECTOR_LOG)
+```
 Shared disk between VMs using sshfs
 ------------------------------------
 This is how to configure a shared VM to have a shared disk:
