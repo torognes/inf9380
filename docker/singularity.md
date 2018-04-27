@@ -2,6 +2,10 @@
 
 Installation
 -------------
+* Install the development tools:
+```bash
+sudo yum groupinstall "development tools"
+```
 * Install the release of your choice. The releases page is [here](https://github.com/singularityware/singularity/releases)
 ```bash
 VERSION=2.4.6
