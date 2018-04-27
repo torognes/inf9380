@@ -11,8 +11,23 @@ sudo yum install R -y
 ```
 * Add the following to ``/etc/condor/condor_config``:
 ```bash
-HAS_R = TRUE
-STARTD_EXPRS = HAS_R
+Has_R = TRUE
+STARTD_EXPRS = Has_R
+```
+* Reconfigure condor, then test the new attribute:
+```bash
+$ condor_reconfig
+Sent "Reconfig" command to local master
+$ condor_status -constraint "Has_R == TRUE"
+Name                      OpSys      Arch   State     Activity LoadAv Mem   ActvtyTime
+
+condor-docker-1.novalocal LINUX      X86_64 Unclaimed Idle      0.000  968  0+01:34:57
+
+               Machines Owner Claimed Unclaimed Matched Preempting  Drain
+
+  X86_64/LINUX        1     0       0         1       0          0      0
+
+         Total        1     0       0         1       0          0      0
 ```
 Install a multi-node cluster
 -----------------------------
