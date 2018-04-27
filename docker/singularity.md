@@ -12,7 +12,7 @@ VERSION=2.4.6
 wget https://github.com/singularityware/singularity/releases/download/$VERSION/singularity-$VERSION.tar.gz
 tar xvf singularity-$VERSION.tar.gz
 cd singularity-$VERSION
-./configure prefix=/usr/bin
+./configure prefix=/usr/local/bin
 make
 sudo make install
 
