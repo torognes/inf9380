@@ -165,7 +165,7 @@ From: ubuntu:latest
     echo "Hello from the container"
     echo "Install additional software here"
     # This part is for Abel and colossus clusters at UiO:
-    mkdir /cluster /work /tsd /usit /projects
+    mkdir /cluster /work /usit /tsd /net /projects
 ```
 * Build the container from the def file
 ```bash
@@ -180,7 +180,7 @@ docker search bowtie2
 ...
 sudo singularity build -w bowtie2.simg docker://biocontainers/bowtie2
 sudo singularity shell -w bowtie2.simg
-Singularity bowtie2.simg:/root> mkdir /cluster /work /usit /tsd /net
+Singularity bowtie2.simg:/root> mkdir /cluster /work /usit /tsd /net /projects
 Singularity bowtie2.simg:/root> exit
 
 scp bowtie2.simg <abel-user>@abel.uio.no:~/
