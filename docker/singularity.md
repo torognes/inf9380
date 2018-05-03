@@ -8,7 +8,7 @@ sudo yum groupinstall "development tools"
 ```
 * Install the release of your choice. The releases page is [here](https://github.com/singularityware/singularity/releases)
 ```bash
-VERSION=2.4.6
+VERSION=2.5.0
 wget https://github.com/singularityware/singularity/releases/download/$VERSION/singularity-$VERSION.tar.gz
 tar xvf singularity-$VERSION.tar.gz
 cd singularity-$VERSION
