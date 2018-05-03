@@ -115,4 +115,5 @@ hello!
 ```
 Useful material
 ----------------
-[Tutorial](http://research.cs.wisc.edu/htcondor/tutorials/fermi-2005/)
+[Condor Tutorial](http://research.cs.wisc.edu/htcondor/tutorials/fermi-2005/)
+[NFS Server and Client Installation on CentOS 7](https://www.howtoforge.com/nfs-server-and-client-on-centos-7)
