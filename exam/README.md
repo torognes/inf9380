@@ -1,4 +1,7 @@
-#INF 5380 / INF 9380 Exam
+# INF 5380 / INF 9380 Exam 2016
+
+*Please note that this is the exam for **2016**. The exam for **2018** will be given later.*
+
 
 This is a practical home exam with all materials and tools allowed. The exam must be solved individually. The exam will be graded as passed or failed.
 
