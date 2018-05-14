@@ -16,7 +16,7 @@ programs/picard-tools-2.2.1/picard.jar CreateSequenceDictionary R=mouse_ref.fa O
 perl programs/prinseq-lite-0.20.4/prinseq-lite.pl -fastq sample.fastq -trim_left 10 -trim_qual_right 30 -min_len 50 -min_qual_mean 28 -max_len 160 -out_good sample_good -out_bad sample_bad
 bwa mem -t 7 -M -c 3000 mouse_ref.fa sample_good.fastq > sample_good.sam
 java -Xmx5120M -jar programs/picard-tools-2.2.1/picard.jar SortSam INPUT=sample_good.sam OUTPUT=sample_good_sorted.bam SORT_ORDER=coordinate CREATE_INDEX=TRUE
-java -Xmx5120M -jar programs/picard-tools-2.2.1/picard.jar AddOrReplaceReadGroups INPUT=sample_good.bam OUTPUT=sample_good_rg.bam RGID=sample RGLB=sample RGPL=Illumina RGPU=Illumina RGSM=sample CREATE_INDEX=TRUE
+java -Xmx5120M -jar programs/picard-tools-2.2.1/picard.jar AddOrReplaceReadGroups INPUT=sample_good_sorted.bam OUTPUT=sample_good_rg.bam RGID=sample RGLB=sample RGPL=Illumina RGPU=Illumina RGSM=sample CREATE_INDEX=TRUE
 java -Xmx4g -jar programs/GenomeAnalysisTK.jar -T HaplotypeCaller -R mouse_ref.fa -I sample_good_rg.bam -o sample_good_rg.vcf
 
 ### pipeline start: once for control.fastq
@@ -24,7 +24,7 @@ java -Xmx4g -jar programs/GenomeAnalysisTK.jar -T HaplotypeCaller -R mouse_ref.f
 perl programs/prinseq-lite-0.20.4/prinseq-lite.pl -fastq control.fastq -trim_left 10 -trim_qual_right 30 -min_len 50 -min_qual_mean 28 -max_len 160 -out_good control_good -out_bad control_bad
 bwa mem -t 7 -M -c 3000 mouse_ref.fa control_good.fastq > control_good.sam
 java -Xmx5120M -jar programs/picard-tools-2.2.1/picard.jar SortSam INPUT=control_good.sam OUTPUT=control_good_sorted.bam SORT_ORDER=coordinate CREATE_INDEX=TRUE
-java -Xmx5120M -jar programs/picard-tools-2.2.1/picard.jar AddOrReplaceReadGroups INPUT=control_good.bam OUTPUT=control_good_rg.bam RGID=control RGLB=control RGPL=Illumina RGPU=Illumina RGSM=control CREATE_INDEX=TRUE
+java -Xmx5120M -jar programs/picard-tools-2.2.1/picard.jar AddOrReplaceReadGroups INPUT=control_good_sorted.bam OUTPUT=control_good_rg.bam RGID=control RGLB=control RGPL=Illumina RGPU=Illumina RGSM=control CREATE_INDEX=TRUE
 java -Xmx4g -jar programs/GenomeAnalysisTK.jar -T HaplotypeCaller -R mouse_ref.fa -I control_good_rg.bam -o control_good_rg.vcf
 
 ### final comparison
