@@ -9,12 +9,8 @@ The Wiki has been updated with the preliminary schedule for spring 2020.
 
 ## IMPORTANT NEWS - TEACHING ON CAMPUS CANCELLED
 
-This course cannot be carried out as planned.
+This course cannot be carried out as planned. UiO is [closing all teaching](https://www.uio.no/english/about/hse/coronavirus/news/from-tomorrow-uio-will-hold-courses-digitally.html) on campus from Friday 13 March 2020 and onwards to reduce the spread of the Corona virus. There will therefore be no teaching in this course on campus in Oslo in the planned period (23 March to 3 April).
 
-UiO is [closing all teaching](https://www.uio.no/english/about/hse/coronavirus/news/from-tomorrow-uio-will-hold-courses-digitally.html) on campus from Friday 13 March 2020 and onwards to reduce the spread of the Corona virus.
-
-There will therefore be no teaching in this course on campus in Oslo in the planned period (23 March to 3 April).
-
-We are currently considering if we can provide this course in an online / digital form or if it needs to be postponed.
+We plan to provide the course in an online / digital form using various means. There will probably be some lectures using video conferencing facilities, some recorded lectures, some self study of lecture presentations etc. We'll do our best.
 
 Do not hesitate to contact [Torbjørn Rognes](https://www.mn.uio.no/ifi/english/people/aca/torognes/) if you have any questions about the course.
