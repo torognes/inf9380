@@ -6,4 +6,4 @@ Preliminary agenda. Update and more details in the coming days.
    * Using Elasticluster (hands-on)
 * Distributed computing 
 
-National cloud provider: NREC (https://www.nrec.no/
+National cloud provider: NREC (https://www.nrec.no/)
