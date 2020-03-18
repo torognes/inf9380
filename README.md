@@ -13,4 +13,8 @@ This course cannot be carried out as planned. UiO is [closing all teaching](http
 
 We plan to provide the course in an online / digital form using various means. There will probably be some lectures using video conferencing facilities, some recorded lectures, some self study of lecture presentations etc. We'll do our best.
 
+We will use Zoom for online teaching. Please get familiar with the software and make it work well on your computer. Here is information about Zoom on the UiO webpages:
+
+https://www.uio.no/english/services/it/phone-chat-videoconf/zoom/
+
 Do not hesitate to contact [Torbjørn Rognes](https://www.mn.uio.no/ifi/english/people/aca/torognes/) if you have any questions about the course.
