@@ -1,6 +1,3 @@
-Getting set up
-===============
-
 # Getting set up
 An admin machine has been created for each of you. This is a linux CentOS 7 virtual machine on the NREC Openstack resources. We will use this machine for the cloud cluster hands-on session, so that you all have the same setup. 
 
@@ -16,7 +13,7 @@ If you are using PuTTY, follow the procedures you know for PuTTY (e.g. like this
 
 
 ## 2. Log into your admin server
-Find the username and password given to you.
+Find the username and password given to you: < ... >
 On linux do: 
 ```
 ssh -i .ssh/inf9380-ssh studentNN@admin-studentNN
@@ -44,7 +41,7 @@ pip install -e .
 Elasticluster contacts NREC's Openstack API and in order to allow this, you  must authenticate yourself. We store our authentication information in a file with environment variables that are used by Openstack.
 
 * Set up your authentication environment to NREC
-   * Download the keystone.sh file into your /home/centos directory
+   * Download the keystone.sh file into your home directory
   
 ```
 wget https://raw.githubusercontent.com/torognes/inf9380/master/cloud/keystone.sh
