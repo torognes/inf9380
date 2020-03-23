@@ -4,7 +4,7 @@ Create your cluster and submit a test job
 You are finally ready to work on the cluster.
 
 
-# 1. On the admin-server: Create an Elasticluster configuration file for the cluster
+## 1. On the admin-server: Create an Elasticluster configuration file for the cluster
 
 ```
 [cloud/nrec]
@@ -55,31 +55,31 @@ flavor=m1.small
 
 ```
 
-# 2. Activate the elasticluster virtualenv
+## 2. Activate the elasticluster virtualenv
 ```
 cd $HOME
 . elasticluster/bin/activate
 ```
 
-# 3. Run elasticluster to create the cluster
+## 3. Run elasticluster to create the cluster
 elasticluster start studentNN
 where studentNN is your cluster name
 
-# 4. Login to the cluster studentNN
+## 4. Login to the cluster studentNN
 
 ```
 elasticluster ssh <studentNN>
 ``` 
 
 
-# 5. Check out your cluster with SLURM
+## 5. Check out your cluster with SLURM
 ```
 sinfo
 squeue
 ```
 
 
-# 6. Submit a SLURM job
+## 6. Submit a SLURM job
 
 * Create the following script:
 
