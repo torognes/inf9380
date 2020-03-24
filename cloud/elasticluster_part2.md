@@ -65,11 +65,22 @@ cd $HOME
 elasticluster start studentNN
 where studentNN is your cluster name
 
-## 4. Login to the cluster studentNN
+This takes a while - ca 10min
 
+## 4. Login to the cluster studentNN
+From the admin node: 
 ```
 elasticluster ssh <studentNN>
 ``` 
+
+From outside:
+We have set up this cluster with IPV6 public ip adress only (due to lack of public IPv6 adresses). 
+Therefore, you can only log into the frontend machine from outside NREC if your network is IPv6 enabled.
+
+Get the IPv6 adress of the frontend machine
+```
+ssh -i ~/.ssh/inf9380-ssh centos@<ipv6-adress>
+```
 
 
 ## 5. Check out your cluster with SLURM
@@ -109,5 +120,5 @@ sbatch  submit_job.sh
 ```
 squeue
 sinfo
-scontrol show <jobid>
+scontrol show job <jobid>
 ```
