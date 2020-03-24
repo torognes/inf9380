@@ -1,6 +1,6 @@
 # Support material
 
-Computer Arithmatic
+Computer Arithmetic
 --------------------
 * [Introduction to binary numbers (7 mins video)](https://www.youtube.com/watch?v=b7pOcU1xMks&index=15&list=PLLiEBFegIj45e_wEshH1qWScNKkHgv0hu&t=0s)
 * Boolean Algebra [part 1 (5 mins)](https://www.youtube.com/watch?v=2zRJ1ShMcgA), [part 2 (7 mins)](https://www.youtube.com/watch?v=aQosPmPAaF8)
