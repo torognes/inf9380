@@ -15,10 +15,10 @@ If you are using PuTTY, follow the procedures you know for PuTTY (e.g. like this
 
 ## 2. Log into your admin server
 Your username on the admin machine is the default username centos
-Find the machine assigned to you from this list: <...> 
+Find the machine assigned to you from this list: https://drive.google.com/open?id=1at4l_FCSc7jT6VcuMKsDkgzb4kOEKafz
 On linux do: 
 ```
-ssh -i .ssh/inf9380-ssh centos@admin-studentNN
+ssh -i .ssh/inf9380-ssh centos@<ip-address>
 ```
 On Windows, use PuTTY to login
 
@@ -56,7 +56,7 @@ Elasticluster contacts NREC's Openstack API and in order to allow this, you  mus
 ```
 wget https://raw.githubusercontent.com/torognes/inf9380/master/cloud/keystone.sh
 ```
-Open the file and enter your NREC username and password which you find here: < ... >
+Open the file and enter your NREC username and password which you find here: https://drive.google.com/open?id=1at4l_FCSc7jT6VcuMKsDkgzb4kOEKafz
 
 
 ```
