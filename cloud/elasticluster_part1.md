@@ -69,6 +69,7 @@ wget https://raw.githubusercontent.com/torognes/inf9380/master/cloud/keystone.sh
 ```
 Open the file and enter your NREC username and password which you find in Google drive, under the cloud folder. 
 
+Then source the file to export the variables: 
 
 ```
 source keystone.sh
