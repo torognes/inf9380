@@ -5,8 +5,9 @@ An admin machine has been created for each of you. This is a linux CentOS 7 virt
 ## 1. Download the ssh key we will use to your laptop
 If you are on linux: 
 ```
-cd .ssh
-wget https://raw.githubusercontent.com/torognes/inf9380/master/cloud/inf9380-ssh
+cd $HOME
+mkdir -p $HOME/.ssh
+wget https://raw.githubusercontent.com/torognes/inf9380/master/cloud/inf9380-ssh -O .ssh/inf9380-ssh
 chmod 0600 ~/.ssh/inf9380-ssh
 ```
 
@@ -19,7 +20,7 @@ Your username on the admin machine is the default username centos.
 Find the machine assigned to you from the list found Google drive, under the cloud folder. 
 On linux do: 
 ```
-ssh -i .ssh/inf9380-ssh centos@<your-ip-address>
+ssh -i ~/.ssh/inf9380-ssh centos@<your-ip-address>
 ```
 On Windows, use PuTTY to login
 
