@@ -6,54 +6,12 @@ You are finally ready to work on the cluster.
 
 ## 1. On the admin-server: Create an Elasticluster configuration file for the cluster
 
-```
-[cloud/nrec]
-provider=openstack
-auth_url=https://api.uh-iaas.no:5000/v3
-username=#your-username
-password=#your-pwd
-project_name=uio-itf-inf9380
-user_domain_name=dataporten
-project_domain_name=dataporten
-region_name=osl
-identity_api_version=3
-
-[login/centos]
-image_user=centos
-image_user_sudo=root
-image_sudo=True
-user_key_name=inf9380-ssh
-user_key_private=~/.ssh/inf9380-ssh
-user_key_public=~/.ssh/inf9380-ssh.pub
-
-[setup/slurm]
-slow_but_safer=True
-provider=ansible
-global_var_multiuser_cluster=no
-login_groups=slurm_master
-compute_groups=slurm_worker,julia
-
-#edit clustername according to your username
-[cluster/studentNN]
-cloud=nrec
-login=centos
-setup=ansible
-security_group=inf9380
-login_nodes=1
-compute_nodes=2
-ssh_to=login
-network_ids=62421b56-346d-4794-99b0-fc27fe4e700f
-image_id=0f6d4a45-043b-4231-872d-4c8f1aee34fc
-
-#edit clustername according to your username
-[cluster/studentNN/login]
-flavor=m1.small
-
-#edit clustername according to your username
-[cluster/studentNN/compute]
-flavor=m1.small
+Download this file https://raw.githubusercontent.com/torognes/inf9380/master/cloud/elasticluster.config and edit the parts indicated in the file
 
 ```
+wget https://raw.githubusercontent.com/torognes/inf9380/master/cloud/elasticluster.config -O ~/.elasticluster/config
+```
+
 
 ## 2. Activate the elasticluster virtualenv
 ```

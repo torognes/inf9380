@@ -51,11 +51,6 @@ This will throw some errors, but create an example configuration file in ~/.elas
 mv ~/.elasticluster/config ~/.elasticluster/config.example
 ```
 
-Download this file https://raw.githubusercontent.com/torognes/inf9380/master/cloud/elasticluster.config and edit the parts indicated in the file
-
-```
-wget https://raw.githubusercontent.com/torognes/inf9380/master/cloud/elasticluster.config -O ~/.elasticluster/config
-```
 
 
 ## 5. Prepare access to NREC (Openstack) for Elasticluster to work
