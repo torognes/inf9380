@@ -14,17 +14,18 @@ If you are using PuTTY, follow the procedures you know for PuTTY (e.g. like this
 
 
 ## 2. Log into your admin server
-Your username on the admin machine is the default username centos
+Your username on the admin machine is the default username centos.
+
 Find the machine assigned to you from the list found Google drive, under the cloud folder. 
 On linux do: 
 ```
-ssh -i .ssh/inf9380-ssh centos@<ip-address>
+ssh -i .ssh/inf9380-ssh centos@<your-ip-address>
 ```
 On Windows, use PuTTY to login
 
 
 ## 3. Install Elasticluster on the admin server
-We install the latest version of Elasticluster following the installation instructions from the [Elasticluster docs](https://elasticluster.readthedocs.io/en/latest/install.html#installing-development-code-from-github)
+We will install the latest version of Elasticluster following the installation instructions from the [Elasticluster docs](https://elasticluster.readthedocs.io/en/latest/install.html#installing-development-code-from-github)
 
 
 ```
@@ -44,7 +45,17 @@ https://elasticluster.readthedocs.io/en/latest/configure.html
 ```
 elasticluster list-templates
 ```
-This will throw some errors, but create an example configuration file in ~/.elasticluster/config
+This will throw some errors, but create an example configuration file in ~/.elasticluster/config which you can have a look at and save as a backup.
+
+```
+mv ~/.elasticluster/config ~/.elasticluster/config.example
+```
+
+Download this file https://raw.githubusercontent.com/torognes/inf9380/master/cloud/elasticluster.config and edit the parts indicated in the file
+
+```
+wget https://raw.githubusercontent.com/torognes/inf9380/master/cloud/elasticluster.config -O ~/.elasticluster/config
+```
 
 
 ## 5. Prepare access to NREC (Openstack) for Elasticluster to work
