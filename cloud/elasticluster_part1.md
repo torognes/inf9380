@@ -30,15 +30,13 @@ We will install the latest version of Elasticluster following the installation i
 
 
 ```
-sudo yum install -y gcc gcc-c++ git libffi-devel openssl-devel python-devel python-virtualenv
-virtualenv elasticluster
+sudo yum install -y gcc gcc-c++ git libffi-devel openssl-devel python3 python3-devel python3-virtualenv
+virtualenv-3 elasticluster
 . elasticluster/bin/activate
-pip install --upgrade 'pip>=9.0.0'
-pip install 'setuptools>=40.3.0'
 cd elasticluster
 git clone git://github.com/gc3-uzh-ch/elasticluster.git src
 cd src
-pip install -e .
+pip3 install -e .
 cd
 ```
 
