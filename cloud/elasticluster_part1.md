@@ -30,7 +30,7 @@ We will install the latest version of Elasticluster following the installation i
 
 
 ```
-sudo yum install gcc gcc-c++ git libffi-devel openssl-devel python-devel python-virtualenv
+sudo yum install -y gcc gcc-c++ git libffi-devel openssl-devel python-devel python-virtualenv
 virtualenv elasticluster
 . elasticluster/bin/activate
 pip install --upgrade 'pip>=9.0.0'
