@@ -44,6 +44,8 @@ pip install -e .
 ## 4. Set up example config file
 https://elasticluster.readthedocs.io/en/latest/configure.html
 ```
+cd $HOME
+. elasticluster/bin/activate
 elasticluster list-templates
 ```
 This will throw some errors, but create an example configuration file in ~/.elasticluster/config which you can have a look at and save as a backup.
