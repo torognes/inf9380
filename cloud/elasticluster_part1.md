@@ -43,7 +43,6 @@ cd
 ```
 
 ## 4. Set up example config file
-https://elasticluster.readthedocs.io/en/latest/configure.html
 ```
 cd $HOME
 . elasticluster/bin/activate
@@ -55,6 +54,7 @@ This will throw some errors, but create an example configuration file in ~/.elas
 mv ~/.elasticluster/config ~/.elasticluster/config.example
 ```
 
+For all configuration options, please consult: https://elasticluster.readthedocs.io/en/latest/configure.html
 
 
 ## 5. Prepare access to NREC (Openstack) for Elasticluster to work
