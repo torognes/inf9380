@@ -1,0 +1,10 @@
+#!/bin/bash
+
+#SBATCH --ntasks-per-node=8
+#SBATCH --account=nn9999k --time=0:15:0 --mem-per-cpu=2G
+
+module purge
+module load R/3.6.2-foss-2019b
+module list
+
+time R CMD BATCH parallel_mclapply.R
