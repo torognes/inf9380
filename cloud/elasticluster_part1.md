@@ -39,6 +39,7 @@ cd elasticluster
 git clone git://github.com/gc3-uzh-ch/elasticluster.git src
 cd src
 pip install -e .
+cd
 ```
 
 ## 4. Set up example config file
