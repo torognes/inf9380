@@ -23,6 +23,11 @@ On linux do:
 ssh -i ~/.ssh/inf9380-ssh centos@<your-ip-address>
 ```
 On Windows, use PuTTY to login
+exhange <your-ip-adress> with your ip from the google drive excel sheet. 
+Example:
+  ```
+ssh -i ~/.ssh/inf9380-ssh centos@158.39.48.2
+```
 
 
 ## 3. Install Elasticluster on the admin server
