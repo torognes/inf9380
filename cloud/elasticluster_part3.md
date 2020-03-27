@@ -3,12 +3,18 @@ Working with the grid
 
 ## Step 1. Log into a machine where I have installed ARC client for you.
 
+In the same way as you connected to the admin node in part1, step2, log into the ARC client machine with ip 158.39.48.136. 
+See below. 
+
 You each have a username and home folder there. Your username is the one you have been using throughout this day, so exchange studentNN in the line below with your actual username. 
 
 ```
 ssh -i ~/.ssh/inf9380-ssh studentNN@158.39.48.136
 ```
-
+Example for student01:
+```
+ssh -i ~/.ssh/inf9380-ssh student01@158.39.48.136
+```
 
 ## Step 2. Set up your authentication for ARC. 
 
