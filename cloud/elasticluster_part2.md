@@ -12,6 +12,13 @@ Download this file https://raw.githubusercontent.com/torognes/inf9380/master/clo
 wget https://raw.githubusercontent.com/torognes/inf9380/master/cloud/elasticluster.config -O ~/.elasticluster/config
 ```
 
+Then go into the configuration file and edit it, with nano, vi(m) or emacs. 
+
+I will show here with emacs
+```
+emacs -nw ~/.elasticluster/config
+```
+
 
 ## 2. Activate the elasticluster virtualenv
 ```
