@@ -69,6 +69,7 @@ Elasticluster contacts NREC's Openstack API and in order to allow this, you  mus
    * Download the keystone.sh file into your home directory
   
 ```
+cd $HOME
 wget https://raw.githubusercontent.com/torognes/inf9380/master/cloud/keystone.sh
 ```
 Open the file and enter your NREC username and password which you find in Google drive, under the cloud folder. 
