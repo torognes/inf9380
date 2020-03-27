@@ -6,7 +6,7 @@ You are finally ready to work on the cluster.
 
 ## 1. On the admin-server: Create an Elasticluster configuration file for the cluster
 
-Download this file https://raw.githubusercontent.com/torognes/inf9380/master/cloud/elasticluster.config and edit the parts indicated in the file
+Download a semi-ready elasticluster config file and edit the parts indicated in the file: 
 
 ```
 cd $HOME
