@@ -23,6 +23,10 @@ emacs -nw ~/.elasticluster/config
 
 
 ## 2. Activate the elasticluster virtualenv and set up authentication
+In [part 1, step 5](https://github.com/torognes/inf9380/blob/master/cloud/elasticluster_part1.md#5-prepare-access-to-nrec-openstack-for-elasticluster-to-work) we downloaded the keystone.sh file and edited the username and password part of the file. 
+
+Now make sure to source it so that elasticluster can see the environment variables that this file sets up. 
+
 ```
 cd $HOME
 . elasticluster/bin/activate
