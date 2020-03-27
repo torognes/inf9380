@@ -9,6 +9,7 @@ You are finally ready to work on the cluster.
 Download this file https://raw.githubusercontent.com/torognes/inf9380/master/cloud/elasticluster.config and edit the parts indicated in the file
 
 ```
+cd $HOME
 wget https://raw.githubusercontent.com/torognes/inf9380/master/cloud/elasticluster.config -O ~/.elasticluster/config
 ```
 
