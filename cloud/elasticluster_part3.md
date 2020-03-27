@@ -3,7 +3,7 @@ Working with the grid
 
 ## Step 1. Log into a machine where I have installed ARC client for you.
 
-In the same way as you connected to the admin node in (part1, step2)(https://github.com/torognes/inf9380/blob/master/cloud/elasticluster_part1.md#2-log-into-your-admin-server), log into the ARC client machine with ip 158.39.48.136. 
+In the same way as you connected to the admin node in [part1, step2](https://github.com/torognes/inf9380/blob/master/cloud/elasticluster_part1.md#2-log-into-your-admin-server), log into the ARC client machine with ip 158.39.48.136. 
 See below. 
 
 You each have a username and home folder there. Your username is the one you have been using throughout this day, so exchange studentNN in the line below with your actual username. 
