@@ -3,11 +3,12 @@ Working with the grid
 
 ## Step 1. Log into a machine where I have installed ARC client for you.
 
-You each have a username and home folder there. Your username is the one you have been using throughout this day. 
+You each have a username and home folder there. Your username is the one you have been using throughout this day, so exchange studentNN in the line below with your actual username. 
 
 ```
 ssh -i ~/.ssh/inf9380-ssh studentNN@158.39.48.136
 ```
+
 
 ## Step 2. Set up your authentication for ARC. 
 
