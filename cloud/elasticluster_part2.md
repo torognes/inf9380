@@ -52,7 +52,12 @@ From outside:
 We have set up this cluster with IPV6 public ip adress only (due to lack of public IPv6 adresses). 
 Therefore, you can only log into the frontend machine from outside NREC if your network is IPv6 enabled.
 
-Get the IPv6 adress of the frontend machine
+Get the IPv6 adress of the frontend machine. For instance get it from elasticluster on the admin node
+```
+elasticluster list-nodes <clustername>
+```
+where you exchange the <clustername> with the name of your actual cluster. In your case e.g. student01
+  
 ```
 ssh -i ~/.ssh/inf9380-ssh centos@<ipv6-adress>
 ```
