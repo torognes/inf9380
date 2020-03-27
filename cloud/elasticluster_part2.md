@@ -21,10 +21,11 @@ emacs -nw ~/.elasticluster/config
 ```
 
 
-## 2. Activate the elasticluster virtualenv
+## 2. Activate the elasticluster virtualenv and set up authentication
 ```
 cd $HOME
 . elasticluster/bin/activate
+source keystone.sh
 ```
 
 ## 3. Run elasticluster to create the cluster
