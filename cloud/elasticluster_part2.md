@@ -28,8 +28,16 @@ cd $HOME
 ```
 
 ## 3. Run elasticluster to create the cluster
+``` 
 elasticluster start studentNN
+```
 where studentNN is your cluster name
+
+So if you are student01 you should do
+```
+elasticluster start student01
+```
+Make sure that you have edited your ```.elasticluster/config```file in step 1 properly, exchanging the student00 with your student number. 
 
 This takes a while - ca 10min
 
