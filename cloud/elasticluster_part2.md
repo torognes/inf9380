@@ -13,9 +13,10 @@ cd $HOME
 wget https://raw.githubusercontent.com/torognes/inf9380/master/cloud/elasticluster.config -O ~/.elasticluster/config
 ```
 
-Then go into the configuration file and edit it, with nano, vi(m) or emacs. 
+Then go into the configuration file and edit it, with nano, vi(m) or emacs. The parts that need editing are marked. Basically this is the username and password to NREC, and the name you will call your cluster. 
 
-I will show here with emacs
+
+I will show here with emacs how to open the file: 
 ```
 emacs -nw ~/.elasticluster/config
 ```
