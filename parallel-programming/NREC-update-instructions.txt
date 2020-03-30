@@ -1,4 +1,7 @@
 
+##Not relevant - I will get back with correct instructions.
+##On your cluster (not admin node) much of this is already present :)
+
 Assuming you are already logged in.
 
 sudo -i
