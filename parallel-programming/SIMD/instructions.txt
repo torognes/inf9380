@@ -1,0 +1,59 @@
+Some examples and hints about using the vector execution
+units. 
+
+On Saga you can load the MPI module which also set up gcc/gfortran.
+module load gompi/2019b
+
+
+
+1)
+Instructions how to compile and build the code.
+Try the first example computepi-1.f90 with different compiler
+optimizations, -O0, -O1, -O2, -O3 and -Ofast
+
+In addition read the man page for gcc about optimization. There are
+a lot of flags, not only the -O flag. Spend some time to test out if
+there is some performance to be gained. Then remember that this code
+does not use the main memory and is only run within the processor cache
+memory.
+
+Please note the vectorization report from the compiler. Did it vectorize ?
+If not, try to figure out why.
+
+gfortran -O3 -o pi.x -fopt-info computepi-1.f90
+time -p ./pi.x
+
+gfortran -O3 -fopenmp-simd -o pi.x -fopt-info computepi-1.f90
+time -p ./pi.x
+
+gfortran -O3 -fopenmp-simd -o pi.x -fopt-info computepi-2.f90
+time -p ./pi.x
+
+gfortran -mavx2 -O3 -fopenmp-simd -o pi.x -fopt-info computepi-2.f90
+time -p ./pi.x
+
+gfortran -mavx2 -O3 -fopenmp-simd -o pi.x -fopt-info computepi-3.f90
+time -p ./pi.x
+
+gfortran -mavx2 -fopenmp-simd -O3 -fopt-info -o pi.x computepi-4.f90 func.f90
+Run it twice, or start with: gfortran -O3 -fopenmp-simd -c func.f90
+to build the module. 
+gfortran -mavx2 -fopenmp-simd -O3 -fopt-info -o pi.x computepi-4.f90 func.f90
+or
+gfortran -mavx2 -fopenmp-simd -O3 -fopt-info -o pi.x computepi-4.f90 func.o
+if you built the module before.
+time -p ./pi.x
+
+gfortran -mavx2 -fopenmp-simd -O3 -fopt-info -o pi.x computepi-5.f90
+time -p ./pi.x
+
+
+What was the best performance you recorded ? Remember if you are running
+on a shared computer the wall time might very, run a few times and record
+the lowest wall clock time.
+
+Optimization is always tedious, be prepered to spend a considerable amount
+of time.
+
+
+

@@ -1,0 +1,23 @@
+
+On Saga please use the following modules, for the gcc/gfortran examples:
+module load gompi/2019b
+
+For Julia:
+module load  Julia/1.1.1
+
+For Python3
+Python/3.7.4-GCCcore-8.3.0
+
+
+
+Please run the record the run times.
+Note that the iterations are different in the
+Python and Julia examples.
+
+gcc -O3 -o pi.x computepi.c
+time -p pi.x
+gfortran -O3 -o pi.x computepi.f90 
+time -p pi.x
+time -p python3 computepi.py 
+time -p julia  computepi.jl
+

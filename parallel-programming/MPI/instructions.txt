@@ -1,0 +1,138 @@
+Introduction to MPI, some exercises.
+
+If running on Saga :
+module load gompi/2019b
+this will set up GNU tools gcc/gfortran and OpenMPI 
+
+
+If running on multiple nodes : add -machinefile nodes
+where nodes are a file with a single line per node with the
+hostname (or ip number) of the node. An example using localhost:
+Shell>cat nodes 
+localhost
+localhost
+
+
+
+
+
+1)
+A simple hello world program in Fortran 90 showing ranks etc. 
+Compile and run :
+mpif90  -o hello.x hello.f90 
+mpirun -np 4 hello.x
+
+
+
+2)
+To illustrate that all ranks are independent of each other explore
+this example, pipeline.f90. Check the variable a. Each of the independent
+ranks only execute the relevant part in the case list.
+
+try: mpirun -np 4 pwd
+
+Compile and run :
+mpif90 -o pipeline.x pipeline.f90
+mpirun -np 4 pipeline.x  23.4
+
+Note how the data is sent from the sender to the receiver.
+A single MPI_REAL number.
+
+Is this program really parallel ? 
+
+
+
+
+3)
+A very simple f90 program to illustrate the send / receive functions
+of MPI. It's simplest to run using two ranks.
+Compile and run :
+mpif90 -o mpi-send-loop.x mpi-send-loop.f90 
+mpirun -np 2 mpi-send-loop.x
+
+Note how the data is sent from the sender to the receiver.
+
+
+
+
+4)
+A couple of simple program using collective operations
+4a)
+in this example allreduce
+Compile and run :
+mpicc -o allreduce.x allreduce.c mpirun -np 4 allreduce.x 
+Try to ask other than the master (rank 0) print. 
+
+4b)
+In this example a Fortran program doing scatter to distribute a block
+of data from one rank to all ranks (inclusive itself). Change the sender
+and see if tings change. How does the scatter functions distribute ?
+
+Compile and run :
+mpif90 -o scatter.x scatter.f90
+mpirun -np 4 scatter.x
+
+4c)
+This is example of using scatter to scatter a block of data to the
+different ranks, doing some calculation work on each rank using
+the received part of the block. After each rank have finished its work
+the results and gathered back into the data block on the master rank.
+
+Compile and run :
+mpif90 -o scatter-compute-gather.x scatter-compute-gather.f90
+mpirun -np 4 scatter-compute-gather.x
+
+It's hardcoded to 4 ranks. A nice expercise is to make it run with any number of
+ranks that can be evenly divided. SIZE need to be diviable with NRANKS. 
+
+
+
+5)
+Compute Pi using a couple of methods.
+
+5a)
+Compute Pi using MPI and only send / receive MPI functions.
+Compile and run like (2 or more ranks) :
+mpicc -o pi.x pi-1.c
+mpirun -np 2 pi.x 10000
+
+
+5b)
+Compute Pi using the atan series and monte Carlo simulation. 
+reference : https://github.com/kiwenlau/MPI_PI/blob/master/Montecarlo/mpi_pi.c
+
+mpicc  -o pi.x pi-2.c
+mpirun -np 2 ./pi.x
+
+
+mpicc -mavx2 -march=znver1 -Ofast -o pi.x pi-3.c
+mpirun -np 2 ./pi.x
+
+
+
+6)
+A benchmark program to measure the bandwidth between to MPI ranks.
+
+mpicc -o bandwidth.x bandwidth.c
+mpirun -np 2 bandwidth.x -b o
+
+Run with only 2 ranks.
+
+Note the ping-pong for zero byte message, this is time it takes to
+send the message and receive the response.
+Note the highest bandwidth, it varies with message size. 
+
+Try running without arguments, ping-ping and exchange (sending and receiving
+simultaniously).
+
+
+7)
+A program to test the maximum counters in the MPI implementation
+
+Compile and run:
+mpicc -o mpi-longint.x mpi-longint.c  -lm
+mpirun -np 2 mpi-longint.x
+
+Change the N definition to a number larger than 2^32 and see if it works.
+If the counters are 32 bits it will fail.
+

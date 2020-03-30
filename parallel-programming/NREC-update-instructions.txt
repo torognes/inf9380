@@ -1,0 +1,51 @@
+
+Assuming you are already logged in.
+
+sudo -i
+yum install gcc
+yum install gfortran
+yum install  python36
+yum install openmpi
+yum install  openmpi-devel
+yum install centos-release-scl
+yum install devtoolset-7-gcc*
+
+
+Install Julia manually :
+wget https://julialang-s3.julialang.org/bin/linux/x64/1.4/julia-1.4.0-linux-x86_64.tar.gz
+cd /opt/
+tar xf /root/julia-1.4.0-linux-x86_64.tar.gz
+ln -s /opt/julia-1.4.0/ /opt/julia
+log out by giving CTRL-D
+
+
+Oppdate your : .bash_profile :
+
+PATH=$PATH:$HOME/.local/bin:$HOME/bin:/opt/julia/bin/:/usr/lib64/openmpi/bin/
+export PATH
+
+If you try gcc -v now you'll see that you have old gcc.
+
+Open a new shell with the updated toolset:
+scl enable devtoolset-7 bash
+
+This overwrite the PATH variable, update it :
+export PATH=$PATH:/usr/lib64/openmpi/bin:/opt/julia/bin
+
+
+We now get:
+[centos@admin-student36 MPI]$ gcc -v
+gcc version 7.3.1 20180303 (Red Hat 7.3.1-5) (GCC)
+
+The examples should now be possible to run:
+cd SIMD 
+gfortran -o pi.x  -fopenmp  computepi-1.f90
+
+cd ../MPI
+mpif90 -o hello.x hello.f90
+mpirun  -np 2 a.out
+
+
+
+
+
