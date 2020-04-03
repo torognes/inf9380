@@ -3,7 +3,7 @@ program compute
 
   integer, parameter :: SIZE=1000000, NRANKS=4
   integer :: myrank, ranks, ierr
-  integer :: i, j 
+  integer :: i, j
   real :: a(NRANKS,SIZE), b(SIZE)
   logical :: master 
 
@@ -25,9 +25,7 @@ program compute
         enddo
      enddo
      write(*,*) 'Initial data, to be distributed to all ranks'
-     do j=1,4
-        write(*,*) a(1:4,j)
-     enddo
+     write(*,fmt='(4(F10.6))') a(1:4,1:SIZE:SIZE/NRANKS)
   endif
 
 ! Scatter the data to all ranks from master (rank 0)
@@ -48,9 +46,7 @@ program compute
 
   if (master) then
      write(*,*) 'Received processed data from all ranks'
-     do j=1,4
-        write(*,*) a(1:4,j)
-     enddo
+     write(*,fmt='(4(F10.6))') a(1:4,1:SIZE:SIZE/NRANKS)
   endif
   
 
