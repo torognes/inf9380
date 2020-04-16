@@ -22,14 +22,16 @@ On linux do:
 ```
 ssh -i ~/.ssh/inf9380-ssh centos@<your-ip-address>
 ```
-On Windows, use PuTTY to login. 
 
-Exhange <your-ip-adress> with your ip from the google drive excel sheet. 
+Exhange < your-ip-adress > with your ip from the google drive excel sheet. 
 
 Example:
-  ```
+```
 ssh -i ~/.ssh/inf9380-ssh centos@158.39.48.2
 ```
+
+On Windows, use PuTTY to login. 
+
 
 
 ## 3. Install Elasticluster on the admin server
@@ -74,7 +76,7 @@ wget https://raw.githubusercontent.com/torognes/inf9380/master/cloud/keystone.sh
 ```
 Open the file and enter your NREC username and password which you find in Google drive, under the cloud folder. 
 
-Then source the file to export the variables: 
+When you are ready to run Elasticluster you must first source the file to export the variables: 
 
 ```
 source keystone.sh
@@ -87,6 +89,7 @@ printenv | grep OS_
 
 
 ## 6. Get the ssh key-pairs that we will use to log into the cluster
+On the admin machine download the ssh key-pairs (same as you used in step 1, but now also the public key). 
 ```
 cd ~/.ssh
 wget https://raw.githubusercontent.com/torognes/inf9380/master/cloud/inf9380-ssh
