@@ -6,17 +6,17 @@ You are finally ready to work on the cluster.
 
 ## 1. On the admin-server: Create an Elasticluster configuration file for the cluster
 
-Download a semi-ready elasticluster config file and edit the parts indicated in the file: 
+Download a semi-ready elasticluster config file:  
 
 ```
 cd $HOME
 wget https://raw.githubusercontent.com/torognes/inf9380/master/cloud/elasticluster.config -O ~/.elasticluster/config
 ```
 
-Then go into the configuration file and edit it, with nano, vi(m) or emacs. The parts that need editing are marked. Basically this is the username and password to NREC, and the name you will call your cluster. 
+Then go into the configuration file and edit it, with nano, vi(m) or emacs. The parts that need editing are marked, and are  the username and password to NREC, and the name you will call your cluster. 
 
 
-I will show here with emacs how to open the file: 
+An example using emacs how to open the file:  
 ```
 emacs -nw ~/.elasticluster/config
 ```
@@ -37,34 +37,32 @@ source keystone.sh
 ``` 
 elasticluster start studentNN
 ```
-where studentNN is your cluster name
-
-So if you are student01 you should do
+where studentNN is your cluster name. So if you are student01 you should do
 ```
 elasticluster start student01
 ```
 Make sure that you have edited your ```.elasticluster/config```file in step 1 properly, exchanging the student00 with your student number. 
 
-This takes a while - ca 10min
+This step takes a while - ca 10min
 
 ## 4. Login to the cluster studentNN
-From the admin node: 
+Once the cluster is successfully set up, login to the login node from the admin node: 
 ```
 elasticluster ssh <studentNN>
 ``` 
 
-From outside:
-We have set up this cluster with IPV6 public ip adress only (due to lack of public IPv6 adresses). 
-Therefore, you can only log into the frontend machine from outside NREC if your network is IPv6 enabled.
+Logging in from outside NREC (another machine than your admin machine):
+We have set up this cluster with IPV6 public ip address only (due to lack of public IPv4 addresses). 
+Therefore, you can only log into the login machine from outside NREC if your network is IPv6 enabled.
 
-Get the IPv6 adress of the frontend machine. For instance get it from elasticluster on the admin node
+Get the IPv6 address of the frontend machine. For instance get it from elasticluster on the admin node
 ```
 elasticluster list-nodes <clustername>
 ```
 where you exchange the <clustername> with the name of your actual cluster. In your case e.g. student01
   
 ```
-ssh -i ~/.ssh/inf9380-ssh centos@<ipv6-adress>
+ssh -i ~/.ssh/inf9380-ssh centos@<ipv6-address>
 ```
 
 
@@ -75,7 +73,7 @@ squeue
 ```
 
 
-## 6. Submit a SLURM job
+## 6. Submit a test SLURM job
 
 * Create the following script:
 
