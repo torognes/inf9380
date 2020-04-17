@@ -12,9 +12,10 @@ cd $HOME
 elasticluster stop student00
 ```
 ## Install the exam version of Elasticluster on admin server
-Note: updated information about version will come here. 
 
-We will install the latest version of Elasticluster following the installation instructions from the [Elasticluster docs](https://elasticluster.readthedocs.io/en/latest/install.html#installing-development-code-from-github)
+We will use Maiken's fork of Elasticluster as of 2020-04-17: https://github.com/maikenp/elasticluster.git
+If you compare the below instructions with the installation instructions in the course tutorial the sequence is the same, the only difference is the link to the source repository. 
+
 
 If you followed the course tutorial you can skip the first line below. 
 
@@ -23,7 +24,7 @@ sudo yum install -y gcc gcc-c++ git libffi-devel openssl-devel python3 python3-d
 virtualenv-3 elasticluster
 . elasticluster/bin/activate
 cd elasticluster
-git clone git://github.com/gc3-uzh-ch/elasticluster.git src
+git clone https://github.com/maikenp/elasticluster.git src
 cd src
 pip3 install -e .
 cd
