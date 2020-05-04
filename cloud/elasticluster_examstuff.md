@@ -3,11 +3,10 @@ Please refer to the tutorial instructions [part 1](https://github.com/torognes/i
 
 
 ##  Erratum to exam desription
-Unfortunately an error has sneaked into the exam description, Part 3d - last bullet point. The image id should be 
+Image_id changes frequently unfortunately due to updates at NREC. If you get an error message in elasticluster related to image_id it is probably because you are using an image_id which by now is outdated. We have been updating a couple of times already. The new active image as os 2020-05-04 is
 ```
-image_id=a3d61720-9b26-47b4-8b5f-11fbc3dd0591
+image_id=61e6ef20-0e58-473e-9056-1fb65d17989d
 ```
-
 
 ## How to delete a cluster
 You must first activate the elasticluster environment, then you can delete the cluster. Here is an example showing the deletion of the cluster student00. Please use your specific cluster name. 
