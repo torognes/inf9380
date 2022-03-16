@@ -46,7 +46,7 @@ cd elasticluster
 git clone https://github.com/elasticluster/elasticluster.git src
 cd src
 pip3 install --upgrade 'pip>=9.0.0'
-pip install -e .
+pip3 install -e .
 cd
 ```
 
