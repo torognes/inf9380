@@ -43,9 +43,9 @@ sudo yum install -y gcc gcc-c++ git libffi-devel openssl-devel python3 python3-d
 virtualenv-3 elasticluster
 . elasticluster/bin/activate
 cd elasticluster
-git clone git://github.com/gc3-uzh-ch/elasticluster.git src
+git clone https://github.com/gc3-uzh-ch/elasticluster.git src
 cd src
-pip3 install -e .
+pip install -e .
 cd
 ```
 
