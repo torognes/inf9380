@@ -3,7 +3,7 @@
 export OS_USERNAME=
 export OS_PASSWORD=
 export OS_PROJECT_NAME=uio-itf-inf9380
-export OS_AUTH_URL=https://nrec.no:5000/v3
+export OS_AUTH_URL=https://api.nrec.no:5000/v3
 export OS_IDENTITY_API_VERSION=3
 export OS_USER_DOMAIN_NAME=dataporten
 export OS_PROJECT_DOMAIN_NAME=dataporten
