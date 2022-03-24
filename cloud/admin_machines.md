@@ -1,0 +1,39 @@
++-----------------+---------------+
+| Name            | IP-address    |
++-----------------+---------------+
+| admin-student00 | 158.39.75.152 |
+| admin-student01 | 158.39.75.164 |
+| admin-student02 | 158.37.63.232 |
+| admin-student03 | 158.37.63.198 |
+| admin-student04 | 158.37.63.155 |
+| admin-student05 | 158.37.63.48  |
+| admin-student06 | 158.37.63.184 |
+| admin-student07 | 158.37.63.50  |
+| admin-student08 | 158.37.63.35  |
+| admin-student09 | 158.39.48.12  |
+| admin-student10 | 158.39.48.91  |
+| admin-student11 | 158.39.48.242 |
+| admin-student12 | 158.39.48.183 |
+| admin-student13 | 158.39.48.199 |
+| admin-student14 | 158.39.48.79  |
+| admin-student15 | 158.39.48.80  |
+| admin-student16 | 158.39.48.213 |
+| admin-student17 | 158.39.48.168 |
+| admin-student18 | 158.39.48.148 |
+| admin-student19 | 158.39.48.225 |
+| admin-student20 | 158.39.48.239 |
+| admin-student21 | 158.39.48.198 |
+| admin-student22 | 158.39.48.180 |
+| admin-student23 | 158.39.48.204 |
+| admin-student24 | 158.39.48.249 |
+| admin-student25 | 158.39.48.141 |
+| admin-student26 | 158.39.48.231 |
+| admin-student27 | 158.39.48.22  |
+| admin-student28 | 158.39.48.222 |
+| admin-student29 | 158.39.48.241 |
+| admin-student30 | 158.39.48.250 |
+| admin-student31 | 158.39.48.87  |
+| admin-student32 | 158.39.48.194 |
+| admin-student33 | 158.39.48.64  |
+| admin-student34 | 158.39.48.243 |
++-----------------+---------------+
