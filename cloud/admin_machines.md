@@ -1,7 +1,6 @@
 
 | Name            | IP-address    |
 |-----------------|---------------|
-| admin-student00 | 158.39.75.152 |
 | admin-student01 | 158.39.75.164 |
 | admin-student02 | 158.37.63.232 |
 | admin-student03 | 158.37.63.198 |
