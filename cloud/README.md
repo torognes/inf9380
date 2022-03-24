@@ -1,6 +1,6 @@
 
 * [Introduction](https://github.com/torognes/inf9380/blob/master/cloud/cloud_computing_part1_intro_2022.pdf)
-* [Hands on](https://github.com/torognes/inf9380/blob/master/cloud/handson.mdf)
+* [Hands on](https://github.com/torognes/inf9380/blob/master/cloud/handson.md)
    * We will be using: https://github.uio.no/maikenp/inf9380_cloudscripts
 
 
