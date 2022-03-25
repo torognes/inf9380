@@ -229,7 +229,7 @@ We also set up a shared file system. The ```/scratch``` folder is exported from 
 On the admin machine:
  
 ```
-cp $HOME/inf9380_cloudscripts/hello.f90 /scratch/
+cp $HOME/inf9380_cloudscripts/application/hello.f90 /scratch/
 cd /scratch/
 ```
 
