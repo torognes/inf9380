@@ -151,8 +151,10 @@ We will now be working only from the NREC admin machine.
 
    ``` emacs -nw basic.tf``` 
 
-4. Replace "studentXX" with your number in the "name" field in the resource block. 
-5. Keep the rest as it is
+4. Replace "studentXX" with your number in the "name" field in the resource block.
+
+5. Create the key: ```openstack keypair create --public-key ~/.ssh/inf9380-2022-ssh.pub inf9380-2022-ssh```
+7. Keep the rest as it is
 
 6. ```terraform init```
  
