@@ -115,10 +115,8 @@ Test to see if you can communicate with NREC:
 
 Does not work, you are missing authentication. 
 
-1. 
-    ```cd $HOME/inf9380_cloudscripts/create``` 
 
-2. Fill in the missing info in *keystonerc* file (username and password)
+1. Fill in the missing info in *keystonerc* file (username and password)
    
    First copy the file to your homefolder, so it is not overwritten if you later do some git updates. 
    
@@ -130,15 +128,15 @@ Does not work, you are missing authentication.
       
     Add the username to the OS_USERNAME variable, and the password to the OS_PASSWORD variable. 
 
-3. Source the file to create environment variables with the connection and authentication information in the keystone file
+2. Source the file to create environment variables with the connection and authentication information in the keystone file
 
     ```source ~/keystonerc``` 
     
-4. Now environment variables are set with the authentication information (username and password) for terraform to communicate with NREC openstack. 
+3. Now environment variables are set with the authentication information (username and password) for terraform to communicate with NREC openstack. 
 
    ```printenv | grep OS_``` 
 
-5. Now try the openstack command again
+4. Now try the openstack command again
 
    ```openstack server list | grep student```    
     
