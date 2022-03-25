@@ -22,6 +22,8 @@ We will be working on CentOS Stream 8 servers (could be anything else, but that 
 
 
 ## Fetch the github repository that contains templates and scripts you will be using 
+You find your machine here: https://github.com/torognes/inf9380/blob/master/cloud/admin_machines.md
+
 1. Log into the admin machine
    
    ```ssh -i ~/Desktop/inf9380-2022-ssh centos@<ip-of-your-admin-machine>``` 
