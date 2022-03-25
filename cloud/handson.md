@@ -71,7 +71,7 @@ The private key will be used to connect from the admin machine to the new instan
 ## 2. Install some general useful software
 On the admin machine do:
 
-```sudo dnf install -y wget unzip emacs python3```
+```sudo dnf install -y wget unzip emacs nano python3```
 
 
 # Install software for working with openstack 
