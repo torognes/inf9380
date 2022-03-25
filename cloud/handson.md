@@ -175,18 +175,28 @@ The resources are created, but they dont have any software installed yet. Also, 
 
 For ease of work, let's put the ssh-key into the ssh-agent. Then we can skip the ```--private-key``` option in the ansible commands. 
 
-
+### a) 
 ```
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/inf9380-2022-ssh  
 ``` 
- 
+
+### b) 
 Now, go to the resources we will use which are here in the git repo you cloned earlier. 
 
 ``` cd $HOME/inf9380_cloudscripts/configure```
  
 Inspect install_openmpi.yml and openmpi.sh You see that this is a playbook with the tasks directly written in the playbook. It installs some prerequisites for openmpi and openmpi itself. We also have to make sure that the system knows where to find openmpi, and we therefore have to add the location to the path. 
 
+### c) 
+You need to edit the inventory file "ansible_hosts" in the configure folder. It now contains some example host names and ip's. You need to change those according to your machines. 
+
+You can get a list of the names and ip-s doing 
+
+```openstack server list -c Networks -c Name | grep student<yournumber>```
+where you change `<yournumber>` with your actual number, e.g. student40. 
+
+copy paste the names and corresponding ip's to replace the ones in the ansible_hosts file. 
 
 Now run:
 
