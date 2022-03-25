@@ -115,7 +115,7 @@ Does not work, you are missing authentication.
 1. 
     ```cd $HOME/inf9380_cloudscripts/create``` 
 
-2. Fill in the missing info in keystonerc (username and password)
+2. Fill in the missing info in *keystonerc* file (username and password)
    Your NREC username and password has been sent to you in email from Torbjørn last week. 
 
 3. Source the file to create environment variables with the connection and authentication information in the keystone file
