@@ -285,14 +285,19 @@ Yes, the file should be there and we are all set.
 
 Now make a host-file so that mpi knows what machines to run on. 
 
+```
+cd /scratch
+touch hosts.txt
+```
+
 Get a list of your servers:
 
 ```openstack server list | grep student<your-number>```
 
-Copy the ipv4 adress into a text file in /scratch. Example:
+Copy the ipv4 addresses of your instances into the text file hosts.txt you just created in scratch /scratch using your favourite text editor. 
+And example of the contents:
 
 ```
-cat /scratch/hosts.txt
 158.39.48.1
 158.39.200.2
 158.37.63.3
