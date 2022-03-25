@@ -145,7 +145,7 @@ We will now be working only from the NREC admin machine.
 
    ```ssh -i ~/Desktop/inf9380-2022-ssh centos@<ip-of-your-admin-machine>``` 
 
-2. Go to the correct folder: ```cd $HOME/inf9380_cloudscripts/create
+2. Go to the correct folder: ```cd $HOME/inf9380_cloudscripts/create```
 
 3. Open the basic.tf file with either nano, vi or emacs (chose the text-editor you prefer of these 3 available)
 
