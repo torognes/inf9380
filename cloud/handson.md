@@ -149,7 +149,7 @@ We will now be working only from the NREC admin machine.
 
 3. Open the basic.tf file with either nano, vi or emacs (chose the text-editor you prefer of these 3 available)
 
-   ``` emacs -nw basic.tf``` 
+   ```emacs -nw basic.tf``` 
 
 4. Replace "studentXX" with your number in the "name" field in the resource block.
 
