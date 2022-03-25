@@ -20,6 +20,34 @@ You could potentially instead use your laptop, but that would require lots of di
 
 We will be working on CentOS Stream 8 servers (could be anything else, but that is my preferred OS). 
 
+## Fetch the ssh keys you will be using later on. Log into the admin machine
+
+(You got the keypair sent to you by email.)
+
+1. Save the key-pairs you got in the email from Torbjørn Thursday 24.03 onto your laptop's Desktop (or any other place you prefer. If you are on a linux or Mac you can copy them directly into your `~/.ssh` folder)
+
+3. From your laptop copy the keys to the admin machine. 
+
+   ```scp -i <folder-you-stored-the-key-pairs>/inf9380-2022-ssh <folder-you-stored-the-key-pairs>/inf9380-2022-ssh* centos@<your-admin-ip>:~/.ssh/``` 
+   
+   Example:
+   
+   ```scp -i ~/Desktop/inf9380-2022-ssh ~/Desktop/inf9380-2022-ssh* centos@158.39.75.164:~/.ssh/``` 
+   
+3. Log into the admin machine 
+   
+   ```ssh -i <folder-you-stored-the-key-paris>/inf9380-2022-ssh centos@<ip-of-your-admin-machine>``` 
+   
+   Example: 
+   
+   ```ssh -i ~/Desktop/inf9380-2022-ssh centos@158.39.201.196```
+   
+   
+4. On the admin machine - change the permissions of the key file (protect it)
+
+   ```chmod 0600 ~/.ssh/inf9380-2022-ssh```
+
+The private key will be used to connect from the admin machine to the new instances you will be creating for the cluster. 
 
 ## Fetch the github repository that contains templates and scripts you will be using 
 You find your machine here: https://github.com/torognes/inf9380/blob/master/cloud/admin_machines.md
@@ -41,32 +69,7 @@ You find your machine here: https://github.com/torognes/inf9380/blob/master/clou
    ```git clone https://github.uio.no/maikenp/inf9380_cloudscripts.git```
 
 
-## Fetch the ssh keys you will be using later on. 
 
-(You got the keypair sent to you by email.)
-
-1. Save the key-pairs you got in the email from Torbjørn Thursday 24.03 onto your laptop's Desktop.
-2. From your laptop copy the keys to the admin machine. 
-
-   ```scp -i inf9380-2022-ssh inf9380-2022-ssh* centos@<your-admin-ip>:~/.ssh/``` 
-   
-   Example:
-   
-   ```scp -i inf9380-2022-ssh inf9380-2022-ssh* centos@158.39.75.164:~/.ssh/``` 
-3. Log into the admin machine
-   
-   ```ssh -i ~/Desktop/inf9380-2022-ssh centos@<ip-of-your-admin-machine>``` 
-   
-   Example:
-   
-   ```ssh -i ~/Desktop/inf9380-2022-ssh centos@158.39.201.196```
-   
-   
-4. On the admin machine - change the permissions of the key file (protect it)
-
-   ```chmod 0600 ~/.ssh/inf9380-2022-ssh```
-
-The private key will be used to connect from the admin machine to the new instances you will be creating for the cluster. 
 
 ## 2. Install some general useful software
 On the admin machine do:
