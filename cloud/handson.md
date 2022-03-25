@@ -207,7 +207,7 @@ The instances are now created in openstack and you can ssh into them if you want
 ## 7. Configure resources with Ansible
 The resources are created, but they dont have any software installed yet. Also, we are going to be running an openmpi application - and to avoid having to copy files from the admin machine to the compute nodes, we want to set up a shared filesystem. 
 
-For ease of work, let's put the ssh-key into the ssh-agent. Then we can skip the ```--private-key``` option in the ansible commands. 
+For ease of work, let's put the ssh-key into the ssh-agent. Then we can skip the ```--private-key``` option in the ansible commands. Note: *you will have to do this everytime at login* 
 
 ### a) 
 ```
@@ -216,14 +216,19 @@ ssh-add ~/.ssh/inf9380-2022-ssh
 ``` 
 
 ### b) 
-Now, go to the resources we will use which are here in the git repo you cloned earlier. 
+Create a workdir where you will be running the ansible commands. Again let's copy the necessary files from the git folder, so that we do no accidentally overwrite them if we update the folder via git pull at some point. 
 
-``` cd $HOME/inf9380_cloudscripts/configure```
+``` 
+mkdir ~/ansible
+cd ~/ansible
+cp ~/inf9380_cloudscripts/configure/* .
+```
+
  
-Inspect install_openmpi.yml and openmpi.sh You see that this is a playbook with the tasks directly written in the playbook. It installs some prerequisites for openmpi and openmpi itself. We also have to make sure that the system knows where to find openmpi, and we therefore have to add the location to the path. 
+Inspect install_openmpi.yml and openmpi.sh.  You see that this is a playbook with the tasks directly written in the playbook. It installs some prerequisites for openmpi and openmpi itself. We also have to make sure that the system knows where to find openmpi, and we therefore have to add the location to the path. 
 
 ### c) 
-You need to edit the inventory file "ansible_hosts" in the configure folder. It now contains some example host names and ip's. You need to change those according to your machines. 
+You need to edit the inventory file "ansible_hosts" that we copied from the configure folder. It now contains some example host names and ip's. You need to change those according to your machines. 
 
 You can get a list of the names and ip-s doing 
 
@@ -240,10 +245,12 @@ ANSIBLE_HOST_KEY_CHECKING=False  ansible-playbook -i ansible_hosts install_openm
 ```
  
  
+
+### e) Set up a shared filesystem
+
 To be able to work smoothly, and not having to copy files from the master machine to the compute nodes, lets set up a shared filesystem. 
- 
-### e)
-Inspect setup_nfs.yml and exportfs.j2 
+
+Inspect setup_nfs.yml and exportfs.j2. 
 
 Now run:
 
