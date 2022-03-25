@@ -198,6 +198,7 @@ where you change `<yournumber>` with your actual number, e.g. student40.
 
 copy paste the names and corresponding ip's to replace the ones in the ansible_hosts file. 
 
+### d)
 Now run:
 
  ``` 
@@ -207,6 +208,7 @@ ANSIBLE_HOST_KEY_CHECKING=False  ansible-playbook -i ansible_hosts install_openm
  
 To be able to work smoothly, and not having to copy files from the master machine to the compute nodes, lets set up a shared filesystem. 
  
+### e)
 Inspect setup_nfs.yml and exportfs.j2 
 
 Now run:
@@ -214,6 +216,8 @@ Now run:
  ``` 
 ANSIBLE_HOST_KEY_CHECKING=False  ansible-playbook -i ansible_hosts setup_nfs.yml 
 ```
+
+You are done setting up your instances. 
  
 ## 9. Run a hello-world example with openmpi
  
