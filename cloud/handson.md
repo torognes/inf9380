@@ -26,7 +26,7 @@ We will be working on CentOS Stream 8 servers (could be anything else, but that 
 
 1. Save the key-pairs you got in the email from Torbjørn Thursday 24.03 onto your laptop's Desktop (or any other place you prefer. If you are on a linux or Mac you can copy them directly into your `~/.ssh` folder)
 
-3. From your laptop copy the keys to the admin machine. 
+3. From your laptop copy the keys to the admin machine on NREC. 
 
    ```scp -i <folder-you-stored-the-key-pairs>/inf9380-2022-ssh <folder-you-stored-the-key-pairs>/inf9380-2022-ssh* centos@<your-admin-ip>:~/.ssh/``` 
    
@@ -36,7 +36,7 @@ We will be working on CentOS Stream 8 servers (could be anything else, but that 
    
 3. Log into the admin machine 
    
-   ```ssh -i <folder-you-stored-the-key-paris>/inf9380-2022-ssh centos@<ip-of-your-admin-machine>``` 
+   ```ssh -i <folder-you-stored-the-key-pairs>/inf9380-2022-ssh centos@<ip-of-your-admin-machine>``` 
    
    Example: 
    
@@ -52,9 +52,9 @@ The private key will be used to connect from the admin machine to the new instan
 ## Fetch the github repository that contains templates and scripts you will be using 
 You find your machine here: https://github.com/torognes/inf9380/blob/master/cloud/admin_machines.md
 
-1. Log into the admin machine
+1. Log into the admin machine (if you have not already) 
    
-   ```ssh -i ~/Desktop/inf9380-2022-ssh centos@<ip-of-your-admin-machine>``` 
+   ```ssh -i <folder-you-stored-the-key-pairs>/inf9380-2022-ssh centos@<ip-of-your-admin-machine>``` 
    
    Example:
    
@@ -64,7 +64,7 @@ You find your machine here: https://github.com/torognes/inf9380/blob/master/clou
 
    ``` sudo dnf install -y git```
 
-3. Clone the repo
+3. Clone the repo we will be using in this hands-on session
 
    ```git clone https://github.uio.no/maikenp/inf9380_cloudscripts.git```
 
@@ -142,6 +142,8 @@ Does not work, you are missing authentication.
 
    ```openstack server list | grep student```    
     
+    
+If you log out of the admin machine, and log in again, you will have to source the keystonerc file again. The variables we set up are flushed from the environment once we log out.  
 
 # Use terraform and ansible to respectively create and configure the instances
 
@@ -155,29 +157,49 @@ We will now be working only from the NREC admin machine.
  
 1. If you are not already in your admin machine, do:
 
-   ```ssh -i ~/Desktop/inf9380-2022-ssh centos@<ip-of-your-admin-machine>``` 
+   ```ssh -i <folder-you-stored-the-key-pairs>/inf9380-2022-ssh centos@<ip-of-your-admin-machine>``` 
 
-2. Go to the correct folder: ```cd $HOME/inf9380_cloudscripts/create```
+2. If you have not already done so, source the keystone file
+   ```source ~/keystonerc``` 
 
-3. Open the basic.tf file with either nano, vi or emacs (chose the text-editor you prefer of these 3 available)
+3. Create a folder on your desktop where you will be working with terraform. Copy the basic.tf file from the create folder:
+   ```
+   cd
+   mkdir terraform
+   cd terraform
+   cp $HOME/inf9380_cloudscripts/basic.tf .
+   ``` 
+
+4. Open the basic.tf file with either nano, vi or emacs (chose the text-editor you prefer of these 3 available)
 
    ```emacs -nw basic.tf``` 
 
-4. Replace "studentXX" with your number in the "name" field in the resource block.
+5. Replace "studentXX" with your number in the "name" field in the resource block.
 
-5. Create the key: ```openstack keypair create --public-key ~/.ssh/inf9380-2022-ssh.pub inf9380-2022-ssh```
-7. Keep the rest as it is
+6. For openstack cli to work we also need to create the ssh keypair via the openstack cli. Create the key. The syntax is `openstack keypair create --pubcli-key <path-to-your-public-key> <name-you want to give it>` 
+    
+   ```openstack keypair create --public-key ~/.ssh/inf9380-2022-ssh.pub inf9380-2022-ssh```
+    
+7. Keep the rest as it is in basic.tf - although you can change things if you want, for instance create larger compute nodes, e.g change the flavor. Explore the openstack command to see what options there are `openstack -h`. For example
+   `openstack flavor list` will give you the list of flavors available to you and you will see the amount of RAM, Disk anc VCPUs that each flavor has. 
 
-6. ```terraform init```
+8. Prepare your workin directory 
+
+   ```terraform init```
  
-7. ```terraform plan```
+9. Show what changes will be performed once you run apply
 
-8. ```terraform apply -auto-approve```
+   ```terraform plan```
 
-9. Check that it worked - replace XX with your student number
+10. If everything seems ok (verify that you got correct names of the instances for example), run:
+    
+    ```terraform apply -auto-approve```
+
+11. Check that it worked - replace XX with your student number
  
-   ```openstack server list | grep studentXX```
-
+    ```openstack server list | grep studentXX```
+    
+    You should see a list of 3 instances. 
 
 The instances are now created in openstack and you can ssh into them if you want
 
