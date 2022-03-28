@@ -178,6 +178,7 @@ We will now be working only from the NREC admin machine.
  
 ![Screenshot 2022-03-28 at 10 59 40](https://user-images.githubusercontent.com/22190352/160363634-a6ea65e8-dd27-45fe-9cd4-21dbeff327da.png)
 
+ See the NREC documentation about security groups: https://docs.nrec.no/security-groups.html
 
 7. For openstack cli to work we also need to create the ssh keypair via the openstack cli. Create the key. The syntax is `openstack keypair create --pubcli-key <path-to-your-public-key> <name-you want to give it>` 
     
