@@ -342,6 +342,8 @@ student38-compute0.novalocal  Myrank is number    1 of total ranks   3
 student38-compute1.novalocal  Myrank is number    2 of total ranks   3
 ``` 
 
+Credits: Thanks Ole Saastad for the nice hello-world fortran example.
+
 
 ### C hello-world execution
 
