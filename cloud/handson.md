@@ -141,7 +141,7 @@ Does not work, you are missing authentication.
    ```openstack server list | grep student```    
     
     
-If you log out of the admin machine, and log in again, you will have to source the keystonerc file again. The variables we set up are flushed from the environment once we log out.  
+**If you log out of the admin machine, and log in again, you will have to source the keystonerc file again. The variables we set up are flushed from the environment once we log out.**
 
 # Use terraform and ansible to respectively create and configure the instances
 
@@ -205,7 +205,7 @@ The instances are now created in openstack and you can ssh into them if you want
 ## 7. Configure resources with Ansible
 The resources are created, but they dont have any software installed yet. Also, we are going to be running an openmpi application - and to avoid having to copy files from the admin machine to the compute nodes, we want to set up a shared filesystem. 
 
-For ease of work, let's put the ssh-key into the ssh-agent. Then we can skip the ```--private-key``` option in the ansible commands. Note: *you will have to do this everytime at login* 
+For ease of work, let's put the ssh-key into the ssh-agent. Then we can skip the ```--private-key``` option in the ansible commands. Note: **you will have to do this everytime at login** 
 
 ### a) 
 ```
