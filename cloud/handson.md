@@ -280,6 +280,7 @@ Copy the code you will use to the shared folder  `/scratch`
 On the admin machine:
 ```
 cp $HOME/inf9380_cloudscripts/application/hello.f90 /scratch/
+cp $HOME/inf9380_cloudscripts/application/mpi_hello_world.c /scratch/
 cd /scratch/
 ```
 
