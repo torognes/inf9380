@@ -351,7 +351,24 @@ Hello world from processor student38-compute1.novalocal, rank 2 out of 3 process
 Hello world from processor student38-compute0.novalocal, rank 1 out of 3 processors
 ```
 
-### Troubleshoting:
+### Troubleshooting:
+
+If you see a message starting with :
+```
+[centos@admin-student38 scratch]$ mpirun -np 3  -hostfile hosts.txt hello.x
+centos@158.39.200.195: Permission denied (publickey,gssapi-keyex,gssapi-with-mic).
+```
+
+That indicates that you forget to set up your ssh key. 
+
+Add your key to the ssh-agent, and that should fix that problem
+
+```
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/inf9380-2022-ssh
+```
+
+
 
 
 # All done
