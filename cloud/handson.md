@@ -262,11 +262,22 @@ You are done setting up your instances.
  
 Now we are ready to try mpirun running over all the 3 instances. 
 
-All the 3 instances must have openmpi installed, and the hello world executable. We already installed openmpi on all the machines in step 7. 
+All the 3 instances must have openmpi installed, and the hello world executable, ssh-authentcation to the nodes must aslo be set up. We already installed openmpi on all the machines in step 7. 
 We also set up a shared file system. The ```/scratch``` folder is exported from the admin machine to the two other instances. We will use that instead of copying the hello world executable to each machine with `scp`. 
   
+  
+### a) 
+If you have not already done so, run:
+
+```
+ eval "$(ssh-agent -s)"
+ ssh-add ~/.ssh/inf9380-2022-ssh  
+```
+
+### b) 
+Copy the code you will use to the shared folder  `/scratch`
+
 On the admin machine:
- 
 ```
 cp $HOME/inf9380_cloudscripts/application/hello.f90 /scratch/
 cd /scratch/
@@ -283,6 +294,8 @@ exit
 
 Yes, the file should be there and we are all set. 
 
+
+### c) 
 Now make a host-file so that mpi knows what machines to run on. 
 
 ```
@@ -303,14 +316,42 @@ And example of the contents:
 158.37.63.3
 ```
  
- 
-Run the openmpi application
+### Fortran hello-world execution
+Compile and run the Fortran hello-world script. 
 ```
 mpif90 -o hello.x hello.f90
-mpirun -np 3  -hostfile hosts.txt hello.x
+mpirun -np 3  -hostfile hosts.txt ./hello.x
 ``` 
 
-That should work! 
+
+You should see output of the type: 
+
+```
+admin-student38.novalocal      I am master, and my rank is:   0
+admin-student38.novalocal     Myrank is number    0 of total ranks   3
+student38-compute0.novalocal  Myrank is number    1 of total ranks   3
+student38-compute1.novalocal  Myrank is number    2 of total ranks   3
+``` 
+
+
+### C hello-world execution
+
+Compile and run the c hello-world script:
+
+```
+mpic++ -o mpi_hello_world.x mpi_hello_world.c 
+mpirun -n 3 -hostfile hosts.txt ./mpi_hello_world.x
+```
+You should see output of the type: 
+
+```
+Hello world from processor admin-student38.novalocal, rank 0 out of 3 processors
+Hello world from processor student38-compute1.novalocal, rank 2 out of 3 processors
+Hello world from processor student38-compute0.novalocal, rank 1 out of 3 processors
+```
+
+### Troubleshoting:
+
 
 # All done
 You have successfully created some resources (instances) in openstack with Terraform, you have configured the instances by installing some software and setting up shared filesystem with ansible, and you have run an openmpi application over the 3 machines in paralell. 
