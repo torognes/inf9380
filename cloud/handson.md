@@ -174,26 +174,31 @@ We will now be working only from the NREC admin machine.
 
 5. Replace "studentXX" with your number in the "name" field in the resource block.
 
-6. For openstack cli to work we also need to create the ssh keypair via the openstack cli. Create the key. The syntax is `openstack keypair create --pubcli-key <path-to-your-public-key> <name-you want to give it>` 
+6. Notice the security group block. The default is always added. In addition we have the inf9380 security group which I have created in advance in NREC. It opens up all ports between the machines in the cluster, so that the machines can communicate among each other, in addition to allowing ssh access to the instances. The rules look like this: 
+ 
+![Screenshot 2022-03-28 at 10 59 40](https://user-images.githubusercontent.com/22190352/160363634-a6ea65e8-dd27-45fe-9cd4-21dbeff327da.png)
+
+
+7. For openstack cli to work we also need to create the ssh keypair via the openstack cli. Create the key. The syntax is `openstack keypair create --pubcli-key <path-to-your-public-key> <name-you want to give it>` 
     
    ```openstack keypair create --public-key ~/.ssh/inf9380-2022-ssh.pub inf9380-2022-ssh```
     
-7. Keep the rest as it is in basic.tf - although you can change things if you want, for instance create larger compute nodes, e.g change the flavor. Explore the openstack command to see what options there are `openstack -h`. For example
+8. Keep the rest as it is in basic.tf - although you can change things if you want, for instance create larger compute nodes, e.g change the flavor. Explore the openstack command to see what options there are `openstack -h`. For example
    `openstack flavor list` will give you the list of flavors available to you and you will see the amount of RAM, Disk anc VCPUs that each flavor has. 
 
-8. Prepare your workin directory 
+9. Prepare your workin directory 
 
    ```terraform init```
  
-9. Show what changes will be performed once you run apply
+10. Show what changes will be performed once you run apply
 
    ```terraform plan```
 
-10. If everything seems ok (verify that you got correct names of the instances for example), run:
+11. If everything seems ok (verify that you got correct names of the instances for example), run:
     
     ```terraform apply -auto-approve```
 
-11. Check that it worked - replace XX with your student number
+12. Check that it worked - replace XX with your student number
  
     ```openstack server list | grep studentXX```
     
@@ -263,7 +268,9 @@ You are done setting up your instances.
  
 Now we are ready to try mpirun running over all the 3 instances. 
 
-All the 3 instances must have openmpi installed, and the hello world executable, ssh-authentcation to the nodes must aslo be set up. We already installed openmpi on all the machines in step 7. 
+All the 3 instances must have openmpi installed, and the hello world executable, ssh-authentcation to the nodes must aslo be set up. 
+
+We already installed openmpi on all the machines in step 7. 
 We also set up a shared file system. The ```/scratch``` folder is exported from the admin machine to the two other instances. We will use that instead of copying the hello world executable to each machine with `scp`. 
   
   
