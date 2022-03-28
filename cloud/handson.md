@@ -174,11 +174,10 @@ We will now be working only from the NREC admin machine.
 
 5. Replace "studentXX" with your number in the "name" field in the resource block.
 
-6. Notice the security group block. The default is always added. In addition we have the inf9380 security group which I have created in advance in NREC. It opens up all ports between the machines in the cluster, so that the machines can communicate among each other, in addition to allowing ssh access to the instances. The rules look like this: 
+6. Notice the security group block. The default is always added. In addition we have the inf9380 security group which I have created in advance in NREC. It opens up all ports between the machines in the cluster, so that the machines can communicate among each other, in addition to allowing ssh access to the instances.  See the NREC documentation about security groups: https://docs.nrec.no/security-groups.html  The rules look like this: 
  
   ![Screenshot 2022-03-28 at 10 59 40](https://user-images.githubusercontent.com/22190352/160363634-a6ea65e8-dd27-45fe-9cd4-21dbeff327da.png)
 
-   See the NREC documentation about security groups: https://docs.nrec.no/security-groups.html
 
 7. For openstack cli to work we also need to create the ssh keypair via the openstack cli. Create the key. The syntax is `openstack keypair create --pubcli-key <path-to-your-public-key> <name-you want to give it>` 
     
