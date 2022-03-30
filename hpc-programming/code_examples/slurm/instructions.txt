@@ -1,9 +1,0 @@
-Edit the SLURM script to suite your project etc.
-
-compile : mpicc -o hello.x hello.c
-
-Submit the compiled hello.c program and check if the number of
-ranks and threads are what you asked for.
-
-
-
