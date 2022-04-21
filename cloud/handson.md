@@ -165,7 +165,7 @@ We will now be working only from the NREC admin machine.
    cd
    mkdir terraform
    cd terraform
-   cp $HOME/inf9380_cloudscripts/basic.tf .
+   cp $HOME/inf9380_cloudscripts/create/basic.tf .
    ``` 
 
 4. Open the basic.tf file with either nano, vi or emacs (chose the text-editor you prefer of these 3 available)
