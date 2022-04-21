@@ -113,7 +113,7 @@ Test to see if you can communicate with NREC:
 
 ```openstack server list | grep student02``` 
 
-Does not work, you are missing authentication. 
+You will see the message: ```Missing value auth-url required for auth plugin password``` which means that the information cannot be retrieved from NREC since you are missing authentication setup. 
 
 
 1. Fill in the missing info in *keystonerc* file (username and password)
