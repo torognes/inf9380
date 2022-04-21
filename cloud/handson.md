@@ -372,7 +372,8 @@ mpif90 -o hello.x hello.f90
 mpirun -np 3  -hostfile hosts.txt ./hello.x
 ``` 
 
-
+*Note*: If you see a message: ```-bash: mpif90: command not found``` you can either log in and out of the admin machine, or run `source /etc/profile.d/openmpi.sh` which sets up the PATH environment variable in order to detect the installed mpi commands. Remember to run the ssh-agent again if you log in and out. 
+ 
 You should see output of the type: 
 
 ```
