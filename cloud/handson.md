@@ -192,7 +192,7 @@ We will now be working only from the NREC admin machine.
  
 10. Show what changes will be performed once you run apply
 
-   ```terraform plan```
+     ```terraform plan```
 
 11. If everything seems ok (verify that you got correct names of the instances for example), run:
     
@@ -262,35 +262,7 @@ Now run:
 ANSIBLE_HOST_KEY_CHECKING=False  ansible-playbook -i ansible_hosts setup_nfs.yml 
 ```
 
-You are done setting up your instances. 
- 
-## 9. Run a hello-world example with openmpi
- 
-Now we are ready to try mpirun running over all the 3 instances. 
 
-All the 3 instances must have openmpi installed, and the hello world executable, ssh-authentcation to the nodes must aslo be set up. 
-
-We already installed openmpi on all the machines in step 7. 
-We also set up a shared file system. The ```/scratch``` folder is exported from the admin machine to the two other instances. We will use that instead of copying the hello world executable to each machine with `scp`. 
-  
-  
-### a) 
-If you have not already done so, run:
-
-```
- eval "$(ssh-agent -s)"
- ssh-add ~/.ssh/inf9380-2022-ssh  
-```
-
-### b) 
-Copy the code you will use to the shared folder  `/scratch`
-
-On the admin machine:
-```
-cp $HOME/inf9380_cloudscripts/application/hello.f90 /scratch/
-cp $HOME/inf9380_cloudscripts/application/mpi_hello_world.c /scratch/
-cd /scratch/
-```
 
 We can log into one of the compute nodes to verify that the /scratch folder with its contents is indeed shared: 
 
@@ -334,12 +306,42 @@ ls /scratch
 ``` 
 
 My output shows:
+
 ```
 [centos@admin-student00 scratch]$ ls /scratch/
-hello.f90  mpi_hello_world.c  test.txt
+test.txt
 ```
 
 I see the `test.txt`file, so we should be all set. 
+
+ 
+## 9. Run a hello-world example with openmpi
+ 
+Now we are ready to try mpirun running over all the 3 instances. 
+
+All the 3 instances must have openmpi installed, and the hello world executable, ssh-authentcation to the nodes must aslo be set up. 
+
+We already installed openmpi on all the machines in step 7. 
+We also set up a shared file system. The ```/scratch``` folder is exported from the admin machine to the two other instances. We will use that instead of copying the hello world executable to each machine with `scp`. 
+  
+  
+### a) 
+If you have not already done so, run:
+
+```
+ eval "$(ssh-agent -s)"
+ ssh-add ~/.ssh/inf9380-2022-ssh  
+```
+
+### b) 
+Copy the code you will use to the shared folder  `/scratch`
+
+On the admin machine:
+```
+cp $HOME/inf9380_cloudscripts/application/hello.f90 /scratch/
+cp $HOME/inf9380_cloudscripts/application/mpi_hello_world.c /scratch/
+cd /scratch/
+```
 
 
 ### c) 
