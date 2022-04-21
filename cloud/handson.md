@@ -296,12 +296,50 @@ We can log into one of the compute nodes to verify that the /scratch folder with
 
 ```
 ssh <ips-of-one-of-your-machines>
+```
+
+Now do
+```
 df -h
+```
+
+You should se an output similar to:
+```
+[centos@studentxx-compute0 ~]$ df -h
+Filesystem              Size  Used Avail Use% Mounted on
+devtmpfs                3.8G     0  3.8G   0% /dev
+tmpfs                   3.8G     0  3.8G   0% /dev/shm
+tmpfs                   3.8G  8.6M  3.8G   1% /run
+tmpfs                   3.8G     0  3.8G   0% /sys/fs/cgroup
+/dev/sda1                20G  3.2G   17G  16% /
+158.39.48.213:/scratch   10G  4.0G  6.1G  40% /scratch
+tmpfs                   777M     0  777M   0% /run/user/1000
+```
+The line `158.39.48.213:/scratch` shows in my case the shared filesystem. 
+
+
+You can look around in the shared area and create files that will be seen on all the machines in your cluster.
+``` 
 ls /scratch/
+touch test.txt
 exit
 ```
 
-Yes, the file should be there and we are all set. 
+Now check that the test.txt file is in /scratch on the admin machine.  
+
+
+On the admin-machine do: 
+```
+ls /scratch
+``` 
+
+My output shows:
+```
+[centos@admin-student00 scratch]$ ls /scratch/
+hello.f90  mpi_hello_world.c  test.txt
+```
+
+I see the `test.txt`file, so we should be all set. 
 
 
 ### c) 
