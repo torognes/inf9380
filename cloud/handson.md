@@ -366,7 +366,8 @@ And example of the contents:
 ```
  
 ### Fortran hello-world execution
-Compile and run the Fortran hello-world script. 
+Compile and run the Fortran hello-world script. We chose `-np 3` here because we have 3 cpu cores available in total, if you have less or more, adjust accordingly. 
+
 ```
 mpif90 -o hello.x hello.f90
 mpirun -np 3  -hostfile hosts.txt ./hello.x
